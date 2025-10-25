@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upvote Functionality Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      border: 1px solid #eaeaea;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .votes {
+      font-weight: bold;
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    button {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #059669;
+    }
+    button.upvoted {
+      background-color: #d1fae5;
+      color: #059669;
+    }
+    .status {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: #f3f4f6;
+    }
+    .tools {
+      display: flex;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .tool-card {
+      flex: 1;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #eaeaea;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Upvote Functionality Test</h1>
+  
+  <div class="card">
+    <h3>Regular Tool</h3>
+    <p>Votes: <span class="votes votes-count" data-tool-id="regular-tool-123">0</span></p>
+    <button id="regular-vote">Upvote</button>
+  </div>
+  
+  <div class="card">
+    <h3>Sponsored Tool</h3>
+    <p>Votes: <span class="votes votes-count" data-tool-id="sponsored-test-tool">0</span></p>
+    <button id="sponsored-vote">Upvote</button>
+  </div>
+  
+  <div class="card">
+    <h3>Nosto (Real Example)</h3>
+    <p>Votes: <span class="votes votes-count" data-tool-id="sponsored-nosto">0</span></p>
+    <button id="nosto-vote">Upvote</button>
+  </div>
+  
+  <h2>Demo: Simulate Page Reload</h2>
+  <p>This simulates how the tool detail page and sponsored listing page should show the same vote counts:</p>
+  
+  <div class="tools">
+    <div class="tool-card">
+      <h3>Sponsored Listing: Nosto</h3>
+      <p>Votes: <span class="votes" id="nosto-listing-votes">0</span></p>
+    </div>
+    
+    <div class="tool-card">
+      <h3>Tool Detail: Nosto</h3>
+      <p>Votes: <span class="votes" id="nosto-detail-votes">0</span></p>
+    </div>
+  </div>
+  
+  <button id="simulate-refresh">Simulate Page Refresh</button>
+  
+  <div class="status" id="status">Status: Ready to test</div>
+  
+  <script>
+    // Important keys used in our app
+    const NOSTO_ID = 'sponsored-nosto';
+    const NOSTO_UPVOTE_KEY = `localUpvote_${NOSTO_ID}`;
+    const NOSTO_VOTES_KEY = `localVotes_${NOSTO_ID}`;
+    
+    // Simulate the upvote functionality
+    document.getElementById('regular-vote').addEventListener('click', function() {
+      simulateUpvote('regular-tool-123', this);
+    });
+    
+    document.getElementById('sponsored-vote').addEventListener('click', function() {
+      simulateUpvote('sponsored-test-tool', this);
+    });
+    
+    document.getElementById('nosto-vote').addEventListener('click', function() {
+      simulateUpvote(NOSTO_ID, this);
+      updateDemoDisplays();
+    });
+    
+    document.getElementById('simulate-refresh').addEventListener('click', function() {
+      updateDemoDisplays();
+      document.getElementById('status').textContent = 'Status: Simulated page refresh - notice consistent vote counts';
+    });
+    
+    function simulateUpvote(toolId, button) {
+      // Check if already upvoted from localStorage
+      const key = `localUpvote_${toolId}`;
+      const countKey = `localVotes_${toolId}`;
+      const isCurrentlyUpvoted = localStorage.getItem(key) === 'true';
+      
+      // Log to status area
+      document.getElementById('status').textContent = 
+        `Status: ${isCurrentlyUpvoted ? 'Removing upvote for' : 'Upvoting'} ${toolId}`;
+      
+      // Toggle the upvote status
+      if (isCurrentlyUpvoted) {
+        localStorage.removeItem(key);
+        button.classList.remove('upvoted');
+      } else {
+        localStorage.setItem(key, 'true');
+        button.classList.add('upvoted');
+      }
+      
+      // Update vote count
+      const currentCount = parseInt(localStorage.getItem(countKey) || '0', 10);
+      const newCount = isCurrentlyUpvoted ? Math.max(0, currentCount - 1) : currentCount + 1;
+      localStorage.setItem(countKey, newCount.toString());
+      
+      // Update UI
+      const voteElement = document.querySelector(`[data-tool-id="${toolId}"]`);
+      if (voteElement) {
+        voteElement.textContent = newCount;
+      }
+      
+      // Simulate event dispatch for tools watching for vote changes
+      window.dispatchEvent(new CustomEvent('toolVotesUpdated', { 
+        detail: { 
+          toolId, 
+          votes: newCount,
+          isSimulated: true
+        } 
+      }));
+      
+      console.log(`${isCurrentlyUpvoted ? 'Removed upvote for' : 'Upvoted'} ${toolId}. New count: ${newCount}`);
+    }
+    
+    // Update the demo displays to show consistent counts
+    function updateDemoDisplays() {
+      // Get the current Nosto vote count from localStorage
+      const nostoVotes = parseInt(localStorage.getItem(NOSTO_VOTES_KEY) || '0', 10);
+      const isNostoUpvoted = localStorage.getItem(NOSTO_UPVOTE_KEY) === 'true';
+      
+      // Update both display areas to simulate different pages showing same data
+      document.getElementById('nosto-listing-votes').textContent = nostoVotes;
+      document.getElementById('nosto-detail-votes').textContent = nostoVotes;
+      
+      // Update button state for the Nosto upvote button
+      const nostoButton = document.getElementById('nosto-vote');
+      if (isNostoUpvoted) {
+        nostoButton.classList.add('upvoted');
+        nostoButton.textContent = 'Upvoted';
+      } else {
+        nostoButton.classList.remove('upvoted');
+        nostoButton.textContent = 'Upvote';
+      }
+    }
+    
+    // Initialize from localStorage on page load
+    function initializeFromLocalStorage() {
+      const toolIds = ['regular-tool-123', 'sponsored-test-tool', NOSTO_ID];
+      
+      toolIds.forEach(toolId => {
+        const key = `localUpvote_${toolId}`;
+        const countKey = `localVotes_${toolId}`;
+        const isUpvoted = localStorage.getItem(key) === 'true';
+        const count = parseInt(localStorage.getItem(countKey) || '0', 10);
+        
+        // Update vote display
+        const voteElement = document.querySelector(`[data-tool-id="${toolId}"]`);
+        if (voteElement) {
+          voteElement.textContent = count;
+        }
+        
+        // Update button state
+        let buttonId;
+        if (toolId === 'regular-tool-123') buttonId = 'regular-vote';
+        else if (toolId === 'sponsored-test-tool') buttonId = 'sponsored-vote';
+        else if (toolId === NOSTO_ID) buttonId = 'nosto-vote';
+        
+        const button = document.getElementById(buttonId);
+        if (button && isUpvoted) {
+          button.classList.add('upvoted');
+          if (toolId === NOSTO_ID) {
+            button.textContent = 'Upvoted';
+          }
+        }
+      });
+      
+      // Update the demo displays
+      updateDemoDisplays();
+    }
+    
+    // Initialize on page load
+    initializeFromLocalStorage();
+  </script>
+</body>
+</html> 

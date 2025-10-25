@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalStorage Diagnostic Tool</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      margin-top: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 5px;
+    }
+    button.delete {
+      background-color: #f44336;
+    }
+    button.update {
+      background-color: #2196F3;
+    }
+    input[type="text"], input[type="number"] {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin: 5px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      background-color: #f9f9f9;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>LocalStorage Diagnostic Tool</h1>
+  <p>This tool helps diagnose and fix issues with vote counts in localStorage</p>
+  
+  <div class="section">
+    <h2>Current LocalStorage Contents</h2>
+    <table id="localStorage-table">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- This will be filled with localStorage data -->
+      </tbody>
+    </table>
+    <button onclick="refreshTable()">Refresh Table</button>
+    <button class="delete" onclick="clearAllStorage()">Clear All LocalStorage</button>
+  </div>
+  
+  <div class="section">
+    <h2>Add/Edit Vote Count</h2>
+    <div class="card">
+      <label for="toolId">Tool ID:</label>
+      <input type="text" id="toolId" placeholder="e.g., sponsored-nosto">
+      <label for="voteCount">Vote Count:</label>
+      <input type="number" id="voteCount" min="0" value="0">
+      <button class="update" onclick="updateVoteCount()">Update Vote Count</button>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Sponsored Tool Votes</h2>
+    <div class="card">
+      <h3>Current Sponsored Tools</h3>
+      <div id="sponsored-tools">
+        <!-- Will be filled with sponsored tool data -->
+      </div>
+      <button onclick="detectSponsoredTools()">Detect Sponsored Tools</button>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Diagnostics</h2>
+    <div class="card">
+      <button onclick="checkForInconsistencies()">Check for Inconsistencies</button>
+      <button onclick="fixCommonIssues()">Fix Common Issues</button>
+      <div id="diagnostic-results"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Refresh the localStorage table
+    function refreshTable() {
+      const tbody = document.querySelector('#localStorage-table tbody');
+      tbody.innerHTML = '';
+      
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        
+        const value = localStorage.getItem(key);
+        const row = document.createElement('tr');
+        
+        // Highlight vote count keys
+        const isVoteKey = key.includes('Votes_') || key.includes('Upvote_');
+        if (isVoteKey) {
+          row.style.backgroundColor = '#e6ffe6';
+        }
+        
+        row.innerHTML = `
+          <td>${key}</td>
+          <td>${value}</td>
+          <td>
+            <button class="delete" onclick="removeItem('${key}')">Delete</button>
+            ${isVoteKey ? `<button class="update" onclick="editItem('${key}')">Edit</button>` : ''}
+          </td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+    
+    // Remove an item from localStorage
+    function removeItem(key) {
+      if (confirm(`Are you sure you want to delete ${key}?`)) {
+        localStorage.removeItem(key);
+        refreshTable();
+      }
+    }
+    
+    // Edit an item in localStorage
+    function editItem(key) {
+      const value = localStorage.getItem(key);
+      const newValue = prompt(`Edit value for ${key}:`, value);
+      
+      if (newValue !== null) {
+        localStorage.setItem(key, newValue);
+        refreshTable();
+      }
+    }
+    
+    // Clear all localStorage
+    function clearAllStorage() {
+      if (confirm('Are you sure you want to clear all localStorage? This cannot be undone!')) {
+        localStorage.clear();
+        refreshTable();
+      }
+    }
+    
+    // Update vote count for a tool
+    function updateVoteCount() {
+      const toolId = document.getElementById('toolId').value;
+      const voteCount = document.getElementById('voteCount').value;
+      
+      if (!toolId) {
+        alert('Please enter a Tool ID');
+        return;
+      }
+      
+      const key = `localVotes_${toolId}`;
+      localStorage.setItem(key, voteCount);
+      
+      // Also update the upvote status
+      const upvoteKey = `localUpvote_${toolId}`;
+      if (parseInt(voteCount) > 0) {
+        localStorage.setItem(upvoteKey, 'true');
+      }
+      
+      alert(`Updated vote count for ${toolId} to ${voteCount}`);
+      refreshTable();
+    }
+    
+    // Check for inconsistencies in the localStorage data
+    function checkForInconsistencies() {
+      const results = document.getElementById('diagnostic-results');
+      results.innerHTML = '<h3>Checking for inconsistencies...</h3>';
+      
+      const issues = [];
+      const voteKeys = [];
+      const upvoteKeys = [];
+      
+      // Collect all vote and upvote keys
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        
+        if (key.startsWith('localVotes_')) {
+          voteKeys.push(key);
+        } else if (key.startsWith('localUpvote_')) {
+          upvoteKeys.push(key);
+        }
+      }
+      
+      // Check for vote keys without matching upvote keys
+      voteKeys.forEach(voteKey => {
+        const toolId = voteKey.replace('localVotes_', '');
+        const upvoteKey = `localUpvote_${toolId}`;
+        const voteValue = parseInt(localStorage.getItem(voteKey) || '0', 10);
+        
+        if (voteValue > 0 && !localStorage.getItem(upvoteKey)) {
+          issues.push(`Vote count exists for ${toolId} but no upvote status`);
+        }
+      });
+      
+      // Check for upvote keys without matching vote keys
+      upvoteKeys.forEach(upvoteKey => {
+        const toolId = upvoteKey.replace('localUpvote_', '');
+        const voteKey = `localVotes_${toolId}`;
+        
+        if (!localStorage.getItem(voteKey)) {
+          issues.push(`Upvote status exists for ${toolId} but no vote count`);
+        }
+      });
+      
+      // Check for sponsored tool vote counts with unexpected values
+      voteKeys
+        .filter(key => key.includes('sponsored-'))
+        .forEach(key => {
+          const value = localStorage.getItem(key);
+          if (value === '0' || value === '') {
+            issues.push(`Sponsored tool ${key.replace('localVotes_', '')} has zero votes`);
+          }
+        });
+      
+      // Report the results
+      if (issues.length === 0) {
+        results.innerHTML = '<h3>No inconsistencies found!</h3>';
+      } else {
+        let html = '<h3>Found inconsistencies:</h3><ul>';
+        issues.forEach(issue => {
+          html += `<li>${issue}</li>`;
+        });
+        html += '</ul>';
+        results.innerHTML = html;
+      }
+    }
+    
+    // Fix common issues
+    function fixCommonIssues() {
+      const results = document.getElementById('diagnostic-results');
+      results.innerHTML = '<h3>Fixing common issues...</h3>';
+      
+      const fixes = [];
+      const voteKeys = [];
+      const upvoteKeys = [];
+      
+      // Get all existing keys
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        
+        if (key.startsWith('localVotes_')) {
+          voteKeys.push(key);
+        } else if (key.startsWith('localUpvote_')) {
+          upvoteKeys.push(key);
+        }
+      }
+      
+      // Fix vote keys without matching upvote keys
+      voteKeys.forEach(voteKey => {
+        const toolId = voteKey.replace('localVotes_', '');
+        const upvoteKey = `localUpvote_${toolId}`;
+        const voteValue = parseInt(localStorage.getItem(voteKey) || '0', 10);
+        
+        if (voteValue > 0 && !localStorage.getItem(upvoteKey)) {
+          localStorage.setItem(upvoteKey, 'true');
+          fixes.push(`Added missing upvote status for ${toolId}`);
+        }
+      });
+      
+      // Fix upvote keys without matching vote keys
+      upvoteKeys.forEach(upvoteKey => {
+        const toolId = upvoteKey.replace('localUpvote_', '');
+        const voteKey = `localVotes_${toolId}`;
+        
+        if (!localStorage.getItem(voteKey)) {
+          localStorage.setItem(voteKey, '1');
+          fixes.push(`Added missing vote count for ${toolId}`);
+        }
+      });
+      
+      // Special case for 'nosto' if needed
+      const nostoToolId = 'sponsored-nosto';
+      const nostoVoteKey = `localVotes_${nostoToolId}`;
+      const nostoUpvoteKey = `localUpvote_${nostoToolId}`;
+      
+      if (!localStorage.getItem(nostoVoteKey)) {
+        localStorage.setItem(nostoVoteKey, '180');
+        localStorage.setItem(nostoUpvoteKey, 'true');
+        fixes.push(`Added default values for ${nostoToolId}`);
+      }
+      
+      // Report the results
+      if (fixes.length === 0) {
+        results.innerHTML = '<h3>No issues needed fixing</h3>';
+      } else {
+        let html = '<h3>Fixed issues:</h3><ul>';
+        fixes.forEach(fix => {
+          html += `<li>${fix}</li>`;
+        });
+        html += '</ul>';
+        results.innerHTML = html;
+      }
+      
+      refreshTable();
+    }
+    
+    // Detect sponsored tools from localStorage
+    function detectSponsoredTools() {
+      const sponsoredTools = document.getElementById('sponsored-tools');
+      sponsoredTools.innerHTML = '';
+      
+      const sponsoredIds = new Set();
+      
+      // Find all sponsored tool IDs
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        
+        if (key.includes('sponsored-')) {
+          const toolId = key.includes('localVotes_') 
+            ? key.replace('localVotes_', '') 
+            : key.replace('localUpvote_', '');
+          
+          sponsoredIds.add(toolId);
+        }
+      }
+      
+      // Show the found tools
+      if (sponsoredIds.size === 0) {
+        sponsoredTools.innerHTML = '<p>No sponsored tools found in localStorage</p>';
+      } else {
+        let html = '<ul>';
+        
+        sponsoredIds.forEach(toolId => {
+          const voteKey = `localVotes_${toolId}`;
+          const upvoteKey = `localUpvote_${toolId}`;
+          
+          const votes = localStorage.getItem(voteKey) || '0';
+          const isUpvoted = localStorage.getItem(upvoteKey) === 'true';
+          
+          html += `
+            <li>
+              <strong>${toolId}</strong>
+              <ul>
+                <li>Votes: ${votes}</li>
+                <li>Upvoted: ${isUpvoted ? 'Yes' : 'No'}</li>
+              </ul>
+              <button onclick="fixTool('${toolId}')">Fix this tool</button>
+            </li>
+          `;
+        });
+        
+        html += '</ul>';
+        sponsoredTools.innerHTML = html;
+      }
+    }
+    
+    // Fix a specific tool
+    function fixTool(toolId) {
+      const voteKey = `localVotes_${toolId}`;
+      const upvoteKey = `localUpvote_${toolId}`;
+      
+      // Copy current values
+      const currentVotes = localStorage.getItem(voteKey) || '0';
+      const isCurrentlyUpvoted = localStorage.getItem(upvoteKey) === 'true';
+      
+      // Show form to edit
+      const newVotes = prompt(`Enter new vote count for ${toolId}:`, currentVotes);
+      if (newVotes === null) return;
+      
+      const shouldUpvote = confirm(`Should ${toolId} be upvoted?`);
+      
+      // Update localStorage
+      localStorage.setItem(voteKey, newVotes);
+      localStorage.setItem(upvoteKey, shouldUpvote ? 'true' : 'false');
+      
+      alert(`Updated ${toolId}:\nVotes: ${newVotes}\nUpvoted: ${shouldUpvote ? 'Yes' : 'No'}`);
+      
+      refreshTable();
+      detectSponsoredTools();
+    }
+    
+    // Initialize
+    refreshTable();
+  </script>
+</body>
+</html> 

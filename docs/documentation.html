@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tool Finder - Premium Documentation</title>
+    <style>
+        :root {
+            --primary-color: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #d1fae5;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --secondary-bg: #f9fafb;
+            --border-color: #e5e7eb;
+            --code-bg: #f3f4f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 300px;
+            background-color: var(--secondary-bg);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .sidebar-brand {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-brand h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .sidebar-brand p {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.75rem 2rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .sidebar-menu a.active {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-left: 4px solid var(--primary-color);
+            padding-left: calc(2rem - 4px);
+        }
+
+        .sidebar-heading {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            padding: 0 2rem;
+            margin: 2rem 0 0.5rem;
+        }
+
+        .content {
+            margin-left: 300px;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--primary-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        ul li, ol li {
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0 1.5rem;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.85rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0 1.5rem;
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .alert-warning {
+            background-color: #fff7ed;
+            border-left-color: #f97316;
+        }
+
+        .alert-danger {
+            background-color: #fee2e2;
+            border-left-color: #ef4444;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+        }
+
+        table th, table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            background-color: var(--secondary-bg);
+            font-weight: 600;
+        }
+
+        .image-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            font-size: 0.875rem;
+            text-align: center;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            background-color: var(--secondary-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-item h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            margin-right: 0.5rem;
+        }
+
+        .badge-blue {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .badge-yellow {
+            background-color: #fef9c3;
+            color: #a16207;
+        }
+
+        .text-muted {
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h1>AI Tool Finder</h1>
+            <p>Version 1.0.4 Documentation</p>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="#introduction" class="active">Introduction</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#installation">Installation</a></li>
+            
+            <div class="sidebar-heading">Frontend</div>
+            <li><a href="#frontend-structure">Project Structure</a></li>
+            <li><a href="#frontend-configuration">Configuration</a></li>
+            <li><a href="#frontend-customization">Customization</a></li>
+            <li><a href="#components">Components</a></li>
+            <li><a href="#pages">Pages</a></li>
+            
+            <div class="sidebar-heading">Backend</div>
+            <li><a href="#backend-structure">Project Structure</a></li>
+            <li><a href="#backend-api">API Endpoints</a></li>
+            <li><a href="#database">Database</a></li>
+            <li><a href="#authentication">Authentication</a></li>
+            
+            <div class="sidebar-heading">Deployment</div>
+            <li><a href="#deployment">Deployment Guide</a></li>
+            <li><a href="#hosting">Hosting Options</a></li>
+            
+            <div class="sidebar-heading">Additional</div>
+            <li><a href="#features">Features Overview</a></li>
+            <li><a href="#customization">Advanced Customization</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="#changelog">Changelog</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <section class="content-section" id="introduction">
+            <h1>AI Tool Finder Documentation</h1>
+            <p>Welcome to the comprehensive documentation for AI Tool Finder, a modern web application designed to discover, showcase, and manage AI tools. This documentation provides detailed information about installation, configuration, customization, and usage of both the frontend and backend components.</p>
+
+            <div class="alert">
+                <strong>Note:</strong> This documentation assumes you have basic knowledge of React, Node.js, and modern web development practices.
+            </div>
+
+            <h3>About AI Tool Finder</h3>
+            <p>AI Tool Finder is a powerful platform that allows users to discover, explore, and submit AI tools across various categories. The application features a modern React frontend with a Node.js/Express backend, offering a seamless and responsive user experience.</p>
+
+            <h3>Key Features</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>AI Tools Directory</h4>
+                    <p>Comprehensive directory of AI tools with detailed information, categorization, and search functionality.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>User Accounts</h4>
+                    <p>Secure user authentication system with personalized dashboards and profiles.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Tool Submissions</h4>
+                    <p>Allow users to submit and manage their own AI tools for inclusion in the directory.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Admin Dashboard</h4>
+                    <p>Powerful admin interface for content moderation, user management, and analytics.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Latest News</h4>
+                    <p>Stay updated with the latest news and developments in the AI industry.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Responsive Design</h4>
+                    <p>Fully responsive design that works seamlessly across all devices and screen sizes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="getting-started">
+            <h2>Getting Started</h2>
+            <p>This section will guide you through the initial setup process for AI Tool Finder, including prerequisites, installation, and basic configuration.</p>
+        </section>
+
+        <section class="content-section" id="prerequisites">
+            <h2>Prerequisites</h2>
+            <p>Before you begin the installation process, ensure you have the following prerequisites:</p>
+
+            <h3>Development Environment</h3>
+            <ul>
+                <li>Node.js (v16.x or later)</li>
+                <li>npm (v8.x or later) or Bun (latest version)</li>
+                <li>Git</li>
+                <li>MongoDB (v5.x or later)</li>
+            </ul>
+
+            <h3>Accounts/API Keys</h3>
+            <ul>
+                <li><strong>Clerk:</strong> For authentication (<a href="https://clerk.dev" target="_blank">https://clerk.dev</a>)</li>
+                <li><strong>MongoDB Atlas:</strong> For cloud database hosting (optional)</li>
+                <li><strong>Vercel:</strong> For deployment (optional)</li>
+            </ul>
+
+            <div class="alert alert-warning">
+                <strong>Important:</strong> You will need to set up a Clerk account and obtain API keys for authentication to work properly.
+            </div>
+        </section>
+
+        <section class="content-section" id="installation">
+            <h2>Installation</h2>
+            
+            <h3>1. Clone the Repository</h3>
+            <pre><code>git clone https://github.com/your-username/ai-tool-finder.git
+cd ai-tool-finder</code></pre>
+
+            <h3>2. Frontend Setup</h3>
+            <pre><code># Navigate to the frontend directory
+cd Ai-Hunt
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env.local</code></pre>
+
+            <h3>3. Configure Environment Variables</h3>
+            <p>Edit the <code>.env.local</code> file and add your Clerk API keys and other configuration options:</p>
+            <pre><code># Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key
+CLERK_SECRET_KEY=your_secret_key
+
+# API URL
+NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# Other Configuration
+# ...</code></pre>
+
+            <h3>4. Backend Setup</h3>
+            <pre><code># Navigate to the backend directory
+cd ../aihunt-backend
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env</code></pre>
+
+            <h3>5. Configure Backend Environment</h3>
+            <p>Edit the <code>.env</code> file in the backend directory:</p>
+            <pre><code># Database
+MONGODB_URI=mongodb://localhost:27017/aitool-finder
+
+# Clerk Authentication
+CLERK_SECRET_KEY=your_secret_key
+
+# Server Configuration
+PORT=5000
+NODE_ENV=development</code></pre>
+
+            <h3>6. Start Development Servers</h3>
+            <p>Start the frontend development server:</p>
+            <pre><code># In the Ai-Hunt directory
+npm run dev</code></pre>
+
+            <p>Start the backend development server:</p>
+            <pre><code># In the aihunt-backend directory
+npm run dev</code></pre>
+
+            <div class="alert">
+                <strong>Success!</strong> Your AI Tool Finder application should now be running at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> with the API server at <a href="http://localhost:5000" target="_blank">http://localhost:5000</a>.
+            </div>
+        </section>
+
+        <section class="content-section" id="frontend-structure">
+            <h2>Frontend Project Structure</h2>
+            <p>The frontend codebase follows a modular and organized structure to maintain clean code separation and reusability.</p>
+
+            <h3>Directory Structure</h3>
+            <pre><code>Ai-Hunt/
+├── src/                # Source code
+│   ├── app/            # Application core components
+│   ├── components/     # Reusable UI components
+│   ├── contexts/       # React contexts and providers
+│   ├── data/           # Data management and static data
+│   ├── hooks/          # Custom React hooks
+│   ├── lib/            # Utility functions and helpers
+│   ├── pages/          # Page components and routing
+│   ├── server/         # Server-side code for API routes
+│   ├── types/          # TypeScript type definitions
+│   ├── utils/          # Utility functions
+│   ├── App.tsx         # Main application component
+│   └── main.tsx        # Entry point
+├── public/             # Static assets
+├── .env                # Environment variables
+├── package.json        # Dependencies and scripts
+├── tailwind.config.js  # Tailwind CSS configuration
+├── tsconfig.json       # TypeScript configuration
+└── vite.config.ts      # Vite configuration</code></pre>
+
+            <h3>Key Directories</h3>
+            
+            <h4>Components</h4>
+            <p>The <code>src/components/</code> directory contains all reusable UI components organized by feature or purpose:</p>
+            <ul>
+                <li><code>ui/</code>: Base UI components (buttons, cards, inputs, etc.)</li>
+                <li><code>layout/</code>: Layout components (header, footer, etc.)</li>
+                <li><code>shared/</code>: Shared components used across multiple pages</li>
+                <li><code>modals/</code>: Modal components for various features</li>
+            </ul>
+
+            <h4>Pages</h4>
+            <p>The <code>src/pages/</code> directory contains page components that represent different routes in the application:</p>
+            <ul>
+                <li><code>HomePage.tsx</code>: The main landing page</li>
+                <li><code>Dashboard.tsx</code>: User dashboard</li>
+                <li><code>ProductDetail.tsx</code>: Tool detail page</li>
+                <li><code>Categories.tsx</code>: Categories listing page</li>
+                <li>... and more</li>
+            </ul>
+
+            <h4>Contexts</h4>
+            <p>The <code>src/contexts/</code> directory contains React context providers for global state management:</p>
+            <ul>
+                <li><code>ToolContext.tsx</code>: Context for managing tool data</li>
+                <li><code>UserContext.tsx</code>: Context for user-related data</li>
+                <li><code>ThemeContext.tsx</code>: Context for theme management</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="backend-structure">
+            <h2>Backend Project Structure</h2>
+            <p>The backend is built with Node.js and Express, following a modular architecture for maintainability and scalability.</p>
+
+            <h3>Directory Structure</h3>
+            <pre><code>aihunt-backend/
+├── src/                  # Source code
+│   ├── api/              # API endpoints and controllers
+│   ├── db/               # Database models and connection
+│   │   ├── models/       # Mongoose models
+│   │   └── connection.js # Database connection setup
+│   ├── server/           # Server configuration
+│   ├── scripts/          # Utility scripts
+│   └── index.ts          # Entry point
+├── .env                  # Environment variables
+└── package.json          # Dependencies and scripts</code></pre>
+
+            <h3>API Structure</h3>
+            <p>The API follows a RESTful architecture with the following main endpoints:</p>
+            <ul>
+                <li><code>/api/tools</code>: Endpoints for AI tools CRUD operations</li>
+                <li><code>/api/users</code>: User management endpoints</li>
+                <li><code>/api/categories</code>: Category management</li>
+                <li><code>/api/search</code>: Search functionality</li>
+                <li><code>/api/news</code>: News and updates</li>
+            </ul>
+
+            <h3>Database Models</h3>
+            <p>The application uses MongoDB with Mongoose for data modeling. Key models include:</p>
+            <ul>
+                <li><code>Tool.js</code>: AI tools schema and model</li>
+                <li><code>ToolSubmission.js</code>: Tool submission records</li>
+                <li><code>SalesInquiry.js</code>: Sales inquiry records</li>
+                <li><code>Category.js</code>: Tool categories</li>
+                <li><code>News.js</code>: News articles</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="features">
+            <h2>Features Overview</h2>
+            <div class="alert">
+                <strong>What's New in v1.0.4:</strong>
+                <ul>
+                    <li>Completely revamped Site Settings management (site name, description, footer, contact, meta tags)</li>
+                    <li>Advanced logo and favicon management with instant preview and multi-format support</li>
+                    <li>Custom CSS and JavaScript injection for advanced customization</li>
+                    <li>Social media links (Twitter/X, Facebook, Instagram, LinkedIn, GitHub) now appear in the footer</li>
+                    <li>Google Analytics 4 integration with automatic page view tracking</li>
+                    <li>Security enhancements: improved authentication, CORS, error handling, and API fallbacks</li>
+                    <li>Server health monitoring endpoint and better diagnostics</li>
+                    <li>Cloudinary-powered logo upload system with validation and error handling</li>
+                </ul>
+            </div>
+            <p>AI Tool Finder comes with a comprehensive set of features designed to provide a complete solution for AI tool discovery and management.</p>
+
+            <h3>Core Features</h3>
+            <ul>
+                <li><strong>AI Tool Directory:</strong> Browse, search, and filter AI tools by categories and tags</li>
+                <li><strong>User Accounts:</strong> Registration, login, and profile management</li>
+                <li><strong>Tool Submissions:</strong> Submit new tools for inclusion in the directory</li>
+                <li><strong>Tool Reviews:</strong> Leave ratings and reviews for tools</li>
+                <li><strong>Bookmarking:</strong> Save favorite tools for later reference</li>
+                <li><strong>News Section:</strong> Latest news and updates in the AI industry</li>
+                <li><strong>Admin Dashboard:</strong> Content moderation and site management</li>
+            </ul>
+
+            <h3>User Dashboard</h3>
+            <p>The user dashboard provides a personalized experience with the following features:</p>
+            <ul>
+                <li>Overview of saved and upvoted tools</li>
+                <li>Recent activity tracking</li>
+                <li>Profile customization</li>
+                <li>Submission management</li>
+                <li>Notification preferences</li>
+            </ul>
+
+            <h3>Admin Features</h3>
+            <p>Admin users have access to additional features for site management:</p>
+            <ul>
+                <li>Tool approval/rejection workflow</li>
+                <li>User management</li>
+                <li>Content moderation</li>
+                <li>Analytics dashboard</li>
+                <li>System settings</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="deployment">
+            <h2>Deployment Guide</h2>
+            <p>This section provides instructions for deploying AI Tool Finder to production environments.</p>
+
+            <h3>Frontend Deployment (Vercel)</h3>
+            <p>The frontend can be easily deployed to Vercel with the following steps:</p>
+            <ol>
+                <li>Create a Vercel account at <a href="https://vercel.com" target="_blank">https://vercel.com</a></li>
+                <li>Install the Vercel CLI: <code>npm install -g vercel</code></li>
+                <li>Navigate to the frontend directory: <code>cd Ai-Hunt</code></li>
+                <li>Run the deployment command: <code>vercel</code></li>
+                <li>Follow the prompts to complete the deployment</li>
+            </ol>
+
+            <h3>Backend Deployment</h3>
+            <p>The backend can be deployed to various platforms such as Heroku, DigitalOcean, or AWS. Here's a general process:</p>
+            <ol>
+                <li>Build the production version: <code>npm run build</code></li>
+                <li>Set up environment variables on your hosting platform</li>
+                <li>Deploy the built application using your platform's deployment tools</li>
+            </ol>
+
+            <h3>Environment Variables for Production</h3>
+            <p>Ensure the following environment variables are set in your production environment:</p>
+            <h4>Frontend</h4>
+            <pre><code>NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_API_URL=https://your-backend-api.com</code></pre>
+
+            <h4>Backend</h4>
+            <pre><code>MONGODB_URI=your_production_mongodb_uri
+CLERK_SECRET_KEY=your_clerk_secret_key
+NODE_ENV=production
+PORT=8080</code></pre>
+
+            <div class="alert alert-warning">
+                <strong>Important:</strong> Always use environment variables for sensitive information. Never commit API keys or secrets to your repository.
+            </div>
+        </section>
+
+        <section class="content-section" id="customization">
+            <h2>Advanced Customization</h2>
+            <p>AI Tool Finder is highly customizable to match your specific needs and branding.</p>
+
+            <h3>Theme Customization</h3>
+            <p>The application uses Tailwind CSS for styling, which can be customized in the <code>tailwind.config.js</code> file:</p>
+            <pre><code>// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          // ... customize your primary color palette
+          600: '#059669',
+          700: '#047857',
+        },
+        // Add more custom colors
+      },
+      // Customize other theme aspects (fonts, spacing, etc.)
+    }
+  }
+}</code></pre>
+
+            <h3>Adding New Features</h3>
+            <p>To add new features to the application:</p>
+            <ol>
+                <li>Create new components in the appropriate directories</li>
+                <li>Add new routes in the router configuration</li>
+                <li>Implement new API endpoints in the backend if needed</li>
+                <li>Update the database models to support new data requirements</li>
+            </ol>
+
+            <h3>Extending the API</h3>
+            <p>To extend the backend API with new endpoints:</p>
+            <ol>
+                <li>Create a new file in the <code>src/api/</code> directory</li>
+                <li>Define your routes and handlers</li>
+                <li>Import and register the routes in <code>src/index.ts</code></li>
+            </ol>
+            <pre><code>// Example of creating a new API endpoint
+import { createHandler } from "./handler.js";
+import { z } from "zod";
+import { connectDB } from '../db/connection.js';
+import { YourModel } from '../db/models/YourModel.js';
+
+const handler = createHandler();
+
+// GET endpoint
+handler.get('/', async (req, res) => {
+  try {
+    await connectDB();
+    const items = await YourModel.find();
+    return res.json(items);
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to fetch items' });
+  }
+});
+
+// POST endpoint
+handler.post('/', async (req, res) => {
+  try {
+    await connectDB();
+    const newItem = await YourModel.create(req.body);
+    return res.status(201).json(newItem);
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to create item' });
+  }
+});</code></pre>
+        </section>
+
+        <section class="content-section" id="troubleshooting">
+            <h2>Troubleshooting</h2>
+            <p>Common issues and their solutions:</p>
+
+            <h3>Authentication Issues</h3>
+            <ul>
+                <li><strong>Problem:</strong> "Authentication required" error when submitting forms
+                    <br><strong>Solution:</strong> Ensure you're properly logged in and Clerk is correctly configured with valid API keys</li>
+                <li><strong>Problem:</strong> 404 error after login redirect
+                    <br><strong>Solution:</strong> Add a <code>vercel.json</code> file with proper rewrites for client-side routing</li>
+            </ul>
+
+            <h3>API Connection Issues</h3>
+            <ul>
+                <li><strong>Problem:</strong> Frontend cannot connect to backend API
+                    <br><strong>Solution:</strong> Check that your API URL is correctly set in the environment variables and CORS is properly configured on the backend</li>
+                <li><strong>Problem:</strong> Database connection errors
+                    <br><strong>Solution:</strong> Verify your MongoDB connection string and ensure the database is accessible from your server</li>
+            </ul>
+
+            <h3>Build and Deployment Issues</h3>
+            <ul>
+                <li><strong>Problem:</strong> Build fails with TypeScript errors
+                    <br><strong>Solution:</strong> Fix type errors or add <code>// @ts-ignore</code> comments where necessary</li>
+                <li><strong>Problem:</strong> Missing environment variables in production
+                    <br><strong>Solution:</strong> Ensure all required environment variables are set in your hosting platform</li>
+            </ul>
+        </section>
+
+        <section class="content-section" id="support">
+            <h2>Support</h2>
+            <p>If you encounter any issues or have questions about AI Tool Finder, there are several ways to get support:</p>
+
+            <h3>Documentation</h3>
+            <p>First, check this documentation thoroughly as most common questions are answered here.</p>
+
+            <h3>Support Channels</h3>
+            <ul>
+                <li><strong>Email Support:</strong> <a href="mailto:hey@webbuddy.agency">hey@webbuddy.agency</a></li>
+                <li><strong>GitHub Issues:</strong> Submit bug reports or feature requests on our GitHub repository</li>
+                <li><strong>Community Forum:</strong> Join our community forum for discussions and help from other users</li>
+            </ul>
+
+            <h3>Custom Development</h3>
+            <p>For custom development, feature requests, or professional support, please contact us at <a href="mailto:hey@webbuddy.agency">hey@webbuddy.agency</a>.</p>
+        </section>
+
+        <section class="content-section" id="changelog">
+            <h2>Changelog</h2>
+            <h3>Version 1.0.4 (Latest Release)</h3>
+            <ul>
+                <li><strong>Site Settings Management:</strong> Customize site name, description, footer, contact email, and meta tags from the admin panel.</li>
+                <li><strong>Appearance Settings:</strong> Manage default, light, and dark mode logos; upload favicons in multiple formats; instant browser tab updates; recommended sizes provided.</li>
+                <li><strong>Custom Code:</strong> Inject custom CSS and JavaScript for advanced site customization.</li>
+                <li><strong>Social Media Settings:</strong> Add Twitter/X, Facebook, Instagram, LinkedIn, and GitHub links; all appear in the site footer.</li>
+                <li><strong>Analytics Integration:</strong> Google Analytics 4 support with automatic tracking; just add your measurement ID.</li>
+                <li><strong>Security Enhancements:</strong> Improved authentication, CORS, error handling, and API fallback mechanisms.</li>
+                <li><strong>Server Health Monitoring:</strong> New health check endpoint and improved diagnostics for troubleshooting.</li>
+                <li><strong>Logo Upload System:</strong> Cloudinary integration, file type/size validation, and robust error handling for uploads.</li>
+                <li><strong>How to Use Site Settings:</strong> Step-by-step instructions for admins to update and save settings.</li>
+            </ul>
+            <h3>Version 1.0.1 (Initial Release)</h3>
+            <ul>
+                <li>Initial release of AI Tool Finder</li>
+                <li>Complete frontend implementation with React and Tailwind CSS</li>
+                <li>Backend API with Express and MongoDB</li>
+                <li>Authentication system using Clerk</li>
+                <li>AI tools directory with categories and search</li>
+                <li>User dashboard and profile management</li>
+                <li>Admin dashboard for content moderation</li>
+                <li>News section for AI industry updates</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 AI Tool Finder. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html> 
