@@ -201,7 +201,7 @@ function PurchasesTab({ userId }: { userId?: string }) {
                       </Badge>
                     </CardTitle>
                     <CardDescription>
-                      Order #{purchase._id.slice(-8).toUpperCase()} • 
+                      Order #{purchase._id.slice(-8).toUpperCase()} ??
                       Purchased {formatDate(purchase.createdAt)}
                     </CardDescription>
                   </div>
@@ -452,7 +452,7 @@ export default function Dashboard() {
   const totalPurchases = purchases?.length || 0;
 
   // First, add an API URL constant if it doesn't exist
-  const API_URL = import.meta.env.VITE_API_URL || 'https://api.aihunt.site';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
 
   // Avatar styles
   const avatarStyles = [

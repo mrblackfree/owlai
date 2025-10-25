@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 import { Tool } from '@/types/tool';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.aihunt.site';
+const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
 
 export interface PaginatedResponse<T> {
   data: T[];

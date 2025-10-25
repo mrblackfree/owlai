@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 import { User } from '@/types/user';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.aihunt.site';
+const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
 
 // API functions
 async function getUsers(token: string): Promise<User[]> {

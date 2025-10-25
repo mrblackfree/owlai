@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Wrench, Users, Star, Activity } from "lucide-react";
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.aihunt.site';
+const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
 
 const Stats = () => {
   const [toolsCount, setToolsCount] = useState(12114); // Default fallback

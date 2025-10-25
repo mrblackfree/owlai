@@ -53,7 +53,7 @@ export const HeroSection = ({
   
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_URL || 'https://api.aihunt.site';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
 
   // Fetch tools count from API
   useEffect(() => {
@@ -452,7 +452,7 @@ export const HeroSection = ({
         >
           <span className="inline-block">Every piece of AI</span><br />
           <span className="inline-block bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">worth knowing</span>
-          <span className="inline-block">—one click away</span>
+          <span className="inline-block">?�one click away</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -488,7 +488,7 @@ export const HeroSection = ({
                   onClick={handleSearchClick}
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-gray-100/80 border border-gray-200/60">
-                  <span className="text-xs font-medium text-gray-700">⌘</span>
+                  <span className="text-xs font-medium text-gray-700">??/span>
                   <span className="text-xs font-medium text-gray-700">K</span>
                 </div>
               </div>
@@ -636,7 +636,7 @@ export const HeroSection = ({
           className="flex flex-wrap justify-center gap-2.5 mt-10"
         >
           <div className="inline-flex items-center px-5 py-2 rounded-full text-sm bg-gradient-to-r from-emerald-500/10 to-emerald-500/20 text-emerald-700 font-medium border border-emerald-100 shadow-sm">
-            <span>✦ Find the perfect tool for your workflow</span>
+            <span>??Find the perfect tool for your workflow</span>
           </div>
           <Button 
             variant="link" 
