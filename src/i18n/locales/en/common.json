@@ -44,6 +44,20 @@
   "trending": "Trending",
   "latest": "Latest",
   "topRated": "Top Rated",
-  "upcoming": "Upcoming"
+  "upcoming": "Upcoming",
+  "footer": {
+    "products": "Products",
+    "resources": "Resources",
+    "company": "Company",
+    "stayUpdated": "Stay updated",
+    "newsletterDescription": "Subscribe to our newsletter for the latest AI tools and news.",
+    "emailPlaceholder": "Enter your email",
+    "subscribe": "Subscribe",
+    "allRightsReserved": "All rights reserved",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "about": "About",
+    "contact": "Contact"
+  }
 }
 

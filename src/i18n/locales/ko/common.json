@@ -44,6 +44,20 @@
   "trending": "트렌딩",
   "latest": "최신",
   "topRated": "최고 평점",
-  "upcoming": "예정"
+  "upcoming": "예정",
+  "footer": {
+    "products": "제품",
+    "resources": "리소스",
+    "company": "회사",
+    "stayUpdated": "최신 소식 받기",
+    "newsletterDescription": "최신 AI 도구와 뉴스를 뉴스레터로 받아보세요.",
+    "emailPlaceholder": "이메일을 입력하세요",
+    "subscribe": "구독",
+    "allRightsReserved": "All rights reserved",
+    "terms": "이용약관",
+    "privacy": "개인정보처리방침",
+    "about": "소개",
+    "contact": "문의"
+  }
 }
 

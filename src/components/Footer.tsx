@@ -29,8 +29,10 @@ import {
   Instagram
 } from "lucide-react";
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
+  const { t } = useTranslation(['common', 'navigation']);
   const { config } = useSiteConfig();
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -172,31 +174,31 @@ export const Footer = () => {
 
           {/* Column 2 - Products */}
           <div>
-            <h3 className="font-medium text-gray-900 mb-4">Products</h3>
+            <h3 className="font-medium text-gray-900 mb-4">{t('common:footer.products')}</h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/latest-launches" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Latest Launches
+                  {t('navigation:latestLaunches')}
                 </Link>
               </li>
               <li>
                 <Link to="/top-products" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Top Products
+                  {t('navigation:topProducts')}
                 </Link>
               </li>
               <li>
                 <Link to="/upcoming" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Upcoming
+                  {t('navigation:upcoming')}
                 </Link>
               </li>
               <li>
                 <Link to="/categories" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Categories
+                  {t('navigation:categories')}
                 </Link>
               </li>
               <li>
                 <Link to="/trending" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Trending
+                  {t('navigation:trending')}
                 </Link>
               </li>
             </ul>
@@ -204,26 +206,26 @@ export const Footer = () => {
 
           {/* Column 3 - Resources */}
           <div>
-            <h3 className="font-medium text-gray-900 mb-4">Resources</h3>
+            <h3 className="font-medium text-gray-900 mb-4">{t('common:footer.resources')}</h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/blog" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Blog
+                  {t('navigation:blog')}
                 </Link>
               </li>
               <li>
                 <Link to="/latest-news" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Latest News
+                  {t('navigation:news')}
                 </Link>
               </li>
               <li>
                 <Link to="/guides" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Guides
+                  {t('navigation:guides')}
                 </Link>
               </li>
               <li>
                 <Link to="/advertise" className="text-sm text-gray-600 hover:text-green-500 transition-colors">
-                  Advertise
+                  {t('navigation:advertise')}
                 </Link>
               </li>
             </ul>
@@ -231,14 +233,14 @@ export const Footer = () => {
 
           {/* Column 4 - Newsletter */}
           <div>
-            <h3 className="font-medium text-gray-900 mb-4">Stay updated</h3>
+            <h3 className="font-medium text-gray-900 mb-4">{t('common:footer.stayUpdated')}</h3>
             <p className="text-sm text-gray-600 mb-4">
-              Subscribe to our newsletter for the latest AI tools and news.
+              {t('common:footer.newsletterDescription')}
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
               <Input 
                 type="email" 
-                placeholder="Enter your email" 
+                placeholder={t('common:footer.emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -268,16 +270,16 @@ export const Footer = () => {
             </p>
             <div className="flex gap-6">
               <Link to="/terms" className="text-sm font-medium text-gray-600 hover:text-green-500 transition-colors">
-                Terms
+                {t('common:footer.terms')}
               </Link>
               <Link to="/privacy" className="text-sm font-medium text-gray-600 hover:text-green-500 transition-colors">
-                Privacy
+                {t('common:footer.privacy')}
               </Link>
               <Link to="/about" className="text-sm font-medium text-gray-600 hover:text-green-500 transition-colors">
-                About
+                {t('common:footer.about')}
               </Link>
               <Link to="/faq" className="text-sm font-medium text-gray-600 hover:text-green-500 transition-colors">
-                FAQ
+                {t('navigation:faq')}
               </Link>
             </div>
           </div>

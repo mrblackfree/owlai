@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Wrench, Users, Star, Activity } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
 
 const Stats = () => {
+  const { t } = useTranslation('pages');
   const [toolsCount, setToolsCount] = useState(12114); // Default fallback
 
   // Fetch tools count from API
@@ -27,37 +29,37 @@ const Stats = () => {
   const stats = [
     {
       id: 1,
-      title: "AI Tools",
+      title: t('home.stats.aiTools'),
       value: toolsCount,
       suffix: "+",
-      description: "Curated AI tools and services",
+      description: t('home.stats.aiToolsDesc'),
       icon: Wrench,
       color: "purple"
     },
     {
       id: 2,
-      title: "Active Users",
+      title: t('home.stats.activeUsers'),
       value: 50000,
       suffix: "+",
-      description: "Monthly active users",
+      description: t('home.stats.activeUsersDesc'),
       icon: Users,
       color: "blue"
     },
     {
       id: 3,
-      title: "Average Rating",
+      title: t('home.stats.averageRating'),
       value: 4.8,
       suffix: "",
-      description: "From verified users",
+      description: t('home.stats.averageRatingDesc'),
       icon: Star,
       color: "yellow"
     },
     {
       id: 4,
-      title: "Daily Updates",
+      title: t('home.stats.dailyUpdates'),
       value: 25,
       suffix: "+",
-      description: "New tools added daily",
+      description: t('home.stats.dailyUpdatesDesc'),
       icon: Activity,
       color: "green"
     }
@@ -104,10 +106,10 @@ const Stats = () => {
         {/* Section Header */}
         <div className="max-w-2xl mx-auto text-center mb-16 space-y-4">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Platform Statistics
+            {t('home.stats.title')}
           </h2>
           <p className="text-gray-600">
-            Discover the impact of our growing AI tools platform.
+            {t('home.stats.subtitle')}
           </p>
         </div>
 

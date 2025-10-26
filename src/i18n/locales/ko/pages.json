@@ -10,8 +10,16 @@
       "toolsCount": "개 이상의 도구"
     },
     "stats": {
+      "title": "플랫폼 통계",
+      "subtitle": "성장하는 AI 도구 플랫폼의 영향력을 확인하세요.",
       "aiTools": "AI 도구",
+      "aiToolsDesc": "엄선된 AI 도구 및 서비스",
       "activeUsers": "활성 사용자",
+      "activeUsersDesc": "월간 활성 사용자",
+      "averageRating": "평균 평점",
+      "averageRatingDesc": "검증된 사용자 평가",
+      "dailyUpdates": "일일 업데이트",
+      "dailyUpdatesDesc": "매일 추가되는 새로운 도구",
       "reviews": "리뷰",
       "categories": "카테고리"
     }

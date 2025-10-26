@@ -18,7 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSubmitTool } from "@/lib/api/submissions";
-import { TOOL_CATEGORIES } from "@/lib/schemas/tool.schema";
+import { TOOL_CATEGORIES, getCategoryTranslation } from "@/lib/schemas/tool.schema";
+import { useTranslation } from 'react-i18next';
 
 interface SubmitToolModalProps {
   isOpen: boolean;
@@ -28,14 +29,15 @@ interface SubmitToolModalProps {
 // Use categories from the shared schema for consistency
 
 const PRICING_TYPES = [
-  "Free",
-  "Freemium",
-  "Paid",
-  "Contact for Pricing",
-  "Enterprise",
+  { value: "Free", labelKey: "free" },
+  { value: "Freemium", labelKey: "freemium" },
+  { value: "Paid", labelKey: "paid" },
+  { value: "Contact for Pricing", labelKey: "contactForPricing" },
+  { value: "Enterprise", labelKey: "enterprise" },
 ];
 
 export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) {
+  const { t, i18n } = useTranslation(['forms', 'common']);
   const { toast } = useToast();
   const submitTool = useSubmitTool();
   const [formError, setFormError] = useState<string | null>(null);
@@ -65,40 +67,40 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
 
     // Validate required fields
     if (!data.toolName || !data.description || !data.websiteUrl || !data.logoUrl || !data.category || !data.pricingType || !data.keyHighlights.length) {
-      setFormError('Please fill in all required fields');
+      setFormError(t('forms:submitTool.fillRequired'));
       return;
     }
 
     // Validate field lengths
     if (data.toolName.length < 2) {
-      setFormError('Tool name must be at least 2 characters');
+      setFormError(t('forms:submitTool.toolNameMin'));
       return;
     }
 
     if (data.description.length < 10) {
-      setFormError('Description must be at least 10 characters');
+      setFormError(t('forms:submitTool.descriptionMin'));
       return;
     }
 
     // Validate URLs
     const urlRegex = /^https?:\/\/.+/;
     if (!urlRegex.test(data.websiteUrl)) {
-      setFormError('Please enter a valid website URL (must start with http:// or https://)');
+      setFormError(t('forms:validation.invalidUrl'));
       return;
     }
 
     if (!urlRegex.test(data.logoUrl)) {
-      setFormError('Please enter a valid logo URL (must start with http:// or https://)');
+      setFormError(t('forms:validation.invalidUrl'));
       return;
     }
 
     if (data.twitterUrl && !urlRegex.test(data.twitterUrl)) {
-      setFormError('Please enter a valid Twitter URL (must start with http:// or https://)');
+      setFormError(t('forms:validation.invalidUrl'));
       return;
     }
 
     if (data.githubUrl && !urlRegex.test(data.githubUrl)) {
-      setFormError('Please enter a valid GitHub URL (must start with http:// or https://)');
+      setFormError(t('forms:validation.invalidUrl'));
       return;
     }
 
@@ -107,8 +109,8 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
       await submitTool.mutateAsync(data);
       
       toast({
-        title: "Tool submitted successfully!",
-        description: "We'll review your submission and get back to you soon.",
+        title: t('forms:submitTool.submitSuccess'),
+        description: t('forms:messages.createSuccess'),
       });
       
       // Reset form and close modal
@@ -117,7 +119,7 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
       onOpenChange(false);
     } catch (error) {
       console.error('Error submitting tool:', error);
-      let errorMessage = 'Please try again later.';
+      let errorMessage = t('forms:submitTool.submitError');
       
       if (error instanceof Error) {
         try {
@@ -134,7 +136,7 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
       
       setFormError(errorMessage);
       toast({
-        title: "Error submitting tool",
+        title: t('forms:submitTool.submitError'),
         description: errorMessage,
         variant: "destructive",
       });
@@ -150,7 +152,7 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
           
           <DialogHeader className="space-y-2 p-6 pb-4">
             <div className="flex items-center justify-between">
-              <DialogTitle className="text-xl font-semibold tracking-tight">Submit New Tool</DialogTitle>
+              <DialogTitle className="text-xl font-semibold tracking-tight">{t('forms:submitTool.title')}</DialogTitle>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -164,7 +166,7 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
               </Button>
             </div>
             <p className="text-sm text-gray-500">
-              Submit a new AI tool to share with the community.
+              {t('forms:submitTool.subtitle')}
             </p>
           </DialogHeader>
 
@@ -177,50 +179,50 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
           <form onSubmit={handleSubmit} className="space-y-6 p-6 pt-2 overflow-y-auto mobile-scroll-area" style={{ maxHeight: 'calc(80vh - 120px)' }}>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="toolName">Tool Name *</Label>
+                <Label htmlFor="toolName">{t('forms:submitTool.toolNameLabel')} *</Label>
                 <Input
                   id="toolName"
                   name="toolName"
-                  placeholder="Enter tool name"
+                  placeholder={t('forms:toolNamePlaceholder')}
                   required
                   minLength={2}
                   className="h-10 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg"
                 />
-                <p className="text-xs text-gray-500">Minimum 2 characters</p>
+                <p className="text-xs text-gray-500">{t('forms:validation.minLength', { min: 2 })}</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Description *</Label>
+                <Label htmlFor="description">{t('forms:submitTool.descriptionLabel')} *</Label>
                 <Textarea
                   id="description"
                   name="description"
-                  placeholder="Describe what the tool does, its key features, and benefits"
+                  placeholder={t('forms:descriptionPlaceholder')}
                   className="h-32 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg"
                   required
                   minLength={10}
                 />
-                <p className="text-xs text-gray-500">Minimum 10 characters</p>
+                <p className="text-xs text-gray-500">{t('forms:validation.minLength', { min: 10 })}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="websiteUrl">Website URL *</Label>
+                  <Label htmlFor="websiteUrl">{t('forms:submitTool.websiteLabel')} *</Label>
                   <Input
                     id="websiteUrl"
                     name="websiteUrl"
                     type="url"
-                    placeholder="https://example.com"
+                    placeholder={t('forms:websiteUrlPlaceholder')}
                     required
                     className="h-10 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="logoUrl">Logo/Image URL *</Label>
+                  <Label htmlFor="logoUrl">{t('forms:submitTool.logoLabel')} *</Label>
                   <Input
                     id="logoUrl"
                     name="logoUrl"
                     type="url"
-                    placeholder="https://example.com/logo.png"
+                    placeholder={t('forms:websiteUrlPlaceholder')}
                     required
                     className="h-10 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg"
                   />
@@ -229,11 +231,11 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category *</Label>
+                  <Label htmlFor="category">{t('forms:submitTool.categoryLabel')} *</Label>
                   <div className="relative">
                     <Select name="category" required>
                       <SelectTrigger className="h-10 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg">
-                        <SelectValue placeholder="Select a category" />
+                        <SelectValue placeholder={t('forms:selectCategory')} />
                       </SelectTrigger>
                       <SelectContent 
                         position="popper" 
@@ -242,7 +244,7 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
                       >
                         {TOOL_CATEGORIES.map((category) => (
                           <SelectItem key={category} value={category}>
-                            {category}
+                            {getCategoryTranslation(category, i18n.language as 'ko' | 'en')}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -250,11 +252,11 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="pricingType">Pricing Type *</Label>
+                  <Label htmlFor="pricingType">{t('forms:submitTool.pricingLabel')} *</Label>
                   <div className="relative">
                     <Select name="pricingType" required>
                       <SelectTrigger className="h-10 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg">
-                        <SelectValue placeholder="Select pricing type" />
+                        <SelectValue placeholder={t('forms:pricingType')} />
                       </SelectTrigger>
                       <SelectContent 
                         position="popper" 
@@ -262,8 +264,8 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
                         style={{ zIndex: 9999 }}
                       >
                         {PRICING_TYPES.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
+                          <SelectItem key={type.value} value={type.value}>
+                            {t(`forms:${type.labelKey}`)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -273,20 +275,20 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="keyHighlights">Key Highlights *</Label>
+                <Label htmlFor="keyHighlights">{t('forms:submitTool.highlightsLabel')} *</Label>
                 <Input
                   id="keyHighlights"
                   name="keyHighlights"
-                  placeholder="e.g., Free plan, API access, 24/7 support (comma separated)"
+                  placeholder={t('forms:submitTool.highlightsPlaceholder')}
                   required
                   className="h-10 bg-white border-gray-200 focus:ring-2 focus:ring-green-100 focus:border-green-500 rounded-lg"
                 />
-                <p className="text-xs text-gray-500">Enter features separated by commas</p>
+                <p className="text-xs text-gray-500">{t('forms:featuresPlaceholder')}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="twitterUrl">Twitter URL</Label>
+                  <Label htmlFor="twitterUrl">{t('forms:submitTool.twitterLabel')}</Label>
                   <Input
                     id="twitterUrl"
                     name="twitterUrl"
@@ -296,7 +298,7 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="githubUrl">GitHub URL</Label>
+                  <Label htmlFor="githubUrl">{t('forms:submitTool.githubLabel')}</Label>
                   <Input
                     id="githubUrl"
                     name="githubUrl"
@@ -319,14 +321,14 @@ export function SubmitToolModal({ isOpen, onOpenChange }: SubmitToolModalProps) 
                 disabled={submitTool.isPending}
                 className="bg-white hover:bg-green-50 text-green-500 border-2 border-green-100 rounded-xl font-medium"
               >
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button 
                 type="submit" 
                 disabled={submitTool.isPending}
                 className="bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 rounded-xl font-medium"
               >
-                {submitTool.isPending ? "Submitting..." : "Submit Tool"}
+                {submitTool.isPending ? t('forms:submitTool.submitting') : t('common:submit')}
               </Button>
             </div>
           </form>

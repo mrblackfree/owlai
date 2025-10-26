@@ -10,8 +10,16 @@
       "toolsCount": "+ Tools"
     },
     "stats": {
+      "title": "Platform Statistics",
+      "subtitle": "Discover the impact of our growing AI tools platform.",
       "aiTools": "AI Tools",
+      "aiToolsDesc": "Curated AI tools and services",
       "activeUsers": "Active Users",
+      "activeUsersDesc": "Monthly active users",
+      "averageRating": "Average Rating",
+      "averageRatingDesc": "From verified users",
+      "dailyUpdates": "Daily Updates",
+      "dailyUpdatesDesc": "New tools added daily",
       "reviews": "Reviews",
       "categories": "Categories"
     }
