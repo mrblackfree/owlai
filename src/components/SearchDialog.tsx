@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useSearchTools } from "@/lib/api/tools";
 import { Tool } from "@/types/tool";
 import { useDebounce } from "use-debounce";
+import { useTranslation } from 'react-i18next';
 
 interface SearchDialogProps {
   open: boolean;
@@ -20,6 +21,7 @@ export const SearchDialog = ({
   onOpenChange,
   onSelectTool
 }: SearchDialogProps) => {
+  const { t } = useTranslation('common');
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   
@@ -64,7 +66,7 @@ export const SearchDialog = ({
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for any tool or feature..."
+              placeholder={t('search.placeholder')}
               className="pl-12 h-12 w-full border border-gray-200 text-base rounded-full bg-gray-50 focus-visible:ring-1 focus-visible:ring-green-500 focus-visible:border-green-500 pr-10"
             />
             {query && (
@@ -83,7 +85,7 @@ export const SearchDialog = ({
           <div className="py-8 text-center text-gray-500">
             <div className="inline-flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-              <span>Searching...</span>
+              <span>{t('search.searching')}</span>
             </div>
           </div>
         )}
@@ -129,16 +131,16 @@ export const SearchDialog = ({
         {/* No results */}
         {query.trim() && searchResults.length === 0 && !isLoading && (
           <div className="py-16 text-center text-gray-500">
-            <p>No results found for "{query}"</p>
-            <p className="text-sm mt-2">Try different keywords or check the spelling</p>
+            <p>{t('search.noResults', { query })}</p>
+            <p className="text-sm mt-2">{t('search.noResultsHint')}</p>
           </div>
         )}
 
         {/* Empty state */}
         {!query.trim() && (
           <div className="py-16 text-center text-gray-500">
-            <p>Type to search through 12,000+ AI tools</p>
-            <p className="text-sm mt-2">Search by name, description, or category</p>
+            <p>{t('search.emptyState')}</p>
+            <p className="text-sm mt-2">{t('search.emptyStateHint')}</p>
           </div>
         )}
       </DialogContent>

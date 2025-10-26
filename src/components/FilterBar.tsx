@@ -35,6 +35,7 @@ import {
   ChevronsUpDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from 'react-i18next';
 
 type Category = {
   value: string;
@@ -89,6 +90,7 @@ export function FilterBar({
   selectedSpecialFilter,
   onSpecialFilterChange,
 }: FilterBarProps) {
+  const { t } = useTranslation('common');
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
   const [showReset, setShowReset] = useState(false);
@@ -98,10 +100,10 @@ export function FilterBar({
 
   // Sort options with icons
   const sortOptions: SortOption[] = [
-    { value: "trending", label: "Trending", icon: <TrendingUp className="w-4 h-4" /> },
-    { value: "newest", label: "Newest", icon: <Clock className="w-4 h-4" /> },
-    { value: "popular", label: "Most Popular", icon: <Zap className="w-4 h-4" /> },
-    { value: "rating", label: "Top Rated", icon: <Star className="w-4 h-4" /> },
+    { value: "trending", label: t('filter.trending'), icon: <TrendingUp className="w-4 h-4" /> },
+    { value: "newest", label: t('filter.newest'), icon: <Clock className="w-4 h-4" /> },
+    { value: "popular", label: t('filter.mostPopular'), icon: <Zap className="w-4 h-4" /> },
+    { value: "rating", label: t('filter.topRated'), icon: <Star className="w-4 h-4" /> },
   ];
 
   // Determine if any filter is active
@@ -139,7 +141,7 @@ export function FilterBar({
               <div className="flex h-11 w-full items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white transition-all hover:border-green-500/50 group-hover:shadow-sm">
                 <Search className="h-4 w-4 text-gray-500 flex-shrink-0" />
                 <span className="text-gray-500 flex-1 truncate">
-                  {searchQuery || "Search tools..."}
+                  {searchQuery || t('filter.searchPlaceholder')}
                 </span>
                 <kbd className="hidden sm:flex h-5 select-none items-center gap-1 rounded border border-gray-100 bg-gray-100/60 px-1.5 font-mono text-[10px] font-medium text-gray-600">
                   <span className="text-xs">⌘</span>K
@@ -161,8 +163,8 @@ export function FilterBar({
                     <LayoutGrid className="h-4 w-4 text-gray-500" />
                     <span className="truncate">
                       {selectedCategory === "all"
-                        ? "All Categories"
-                        : categories.find((category) => category.value === selectedCategory)?.label || "All Categories"}
+                        ? t('filter.allCategories')
+                        : categories.find((category) => category.value === selectedCategory)?.label || t('filter.allCategories')}
                     </span>
                   </div>
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -170,8 +172,8 @@ export function FilterBar({
               </PopoverTrigger>
               <PopoverContent className="p-0 w-[300px] z-[9999]" align="start">
                 <Command>
-                  <CommandInput placeholder="Search categories..." />
-                  <CommandEmpty>No category found.</CommandEmpty>
+                  <CommandInput placeholder={t('filter.searchCategories')} />
+                  <CommandEmpty>{t('filter.noCategoryFound')}</CommandEmpty>
                   <CommandList>
                     <ScrollArea className="h-[300px]">
                       <CommandGroup>
