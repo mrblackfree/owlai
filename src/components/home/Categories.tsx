@@ -16,23 +16,27 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
-const categories = [
-  { id: 1, name: "Image Generation", icon: Image, color: "pink", count: 150 },
-  { id: 2, name: "Writing & Content", icon: Pencil, color: "blue", count: 120 },
-  { id: 3, name: "Code & Development", icon: Code, color: "green", count: 85 },
-  { id: 4, name: "Video Creation", icon: Video, color: "orange", count: 65 },
-  { id: 5, name: "Audio & Speech", icon: AudioLines, color: "purple", count: 45 },
-  { id: 6, name: "Chatbots", icon: Bot, color: "indigo", count: 95 },
-  { id: 7, name: "Machine Learning", icon: Brain, color: "fuchsia", count: 75 },
-  { id: 8, name: "Data Analysis", icon: Database, color: "cyan", count: 55 },
-  { id: 9, name: "Business & Analytics", icon: BarChart, color: "teal", count: 40 },
-  { id: 10, name: "Research Tools", icon: Search, color: "violet", count: 35 },
-  { id: 11, name: "Language Models", icon: MessageSquare, color: "blue", count: 60 },
-  { id: 12, name: "Integrations", icon: Layers, color: "rose", count: 30 }
+const getCategoriesData = (t: any) => [
+  { id: 1, name: "Image Generation", nameKey: "imageGenerationEditing", icon: Image, color: "pink", count: 150 },
+  { id: 2, name: "Writing & Content", nameKey: "writingContentCreation", icon: Pencil, color: "blue", count: 120 },
+  { id: 3, name: "Code & Development", nameKey: "codeDevelopment", icon: Code, color: "green", count: 85 },
+  { id: 4, name: "Video Creation", nameKey: "videoCreationEditing", icon: Video, color: "orange", count: 65 },
+  { id: 5, name: "Audio & Speech", nameKey: "audioMusic", icon: AudioLines, color: "purple", count: 45 },
+  { id: 6, name: "Chatbots", nameKey: "chatbots", icon: Bot, color: "indigo", count: 95 },
+  { id: 7, name: "Machine Learning", nameKey: "machineLearning", icon: Brain, color: "fuchsia", count: 75 },
+  { id: 8, name: "Data Analysis", nameKey: "dataAnalytics", icon: Database, color: "cyan", count: 55 },
+  { id: 9, name: "Business & Analytics", nameKey: "businessMarketing", icon: BarChart, color: "teal", count: 40 },
+  { id: 10, name: "Research Tools", nameKey: "researchAnalysis", icon: Search, color: "violet", count: 35 },
+  { id: 11, name: "Language Models", nameKey: "translationLanguage", icon: MessageSquare, color: "blue", count: 60 },
+  { id: 12, name: "Integrations", nameKey: "integrations", icon: Layers, color: "rose", count: 30 }
 ];
 
 export const Categories = () => {
+  const { t } = useTranslation(['categories', 'navigation']);
+  const categories = getCategoriesData(t);
+  
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -59,7 +63,7 @@ export const Categories = () => {
             transition={{ duration: 0.5 }}
             className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent inline-block"
           >
-            Explore Categories
+            {t('navigation:categories')}
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -67,7 +71,7 @@ export const Categories = () => {
             transition={{ delay: 0.2 }}
             className="text-gray-600 mt-2"
           >
-            Discover tools for every need
+            {t('navigation:discover')}
           </motion.p>
         </div>
 
@@ -105,10 +109,10 @@ export const Categories = () => {
                     {/* Category info */}
                     <div className="text-center space-y-1">
                       <h3 className={`text-sm font-semibold text-gray-800 group-hover:text-${category.color}-600 transition-colors duration-300`}>
-                        {category.name}
+                        {t(`categories:${category.nameKey}`)}
                       </h3>
                       <p className="text-xs text-gray-500 group-hover:text-gray-600">
-                        {category.count} tools
+                        {category.count} {t('navigation:tools')}
                       </p>
                     </div>
 

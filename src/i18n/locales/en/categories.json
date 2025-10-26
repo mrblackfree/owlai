@@ -1,0 +1,26 @@
+{
+  "writingContentCreation": "Writing & Content Creation",
+  "imageGenerationEditing": "Image Generation & Editing",
+  "videoCreationEditing": "Video Creation & Editing",
+  "codeDevelopment": "Code & Development",
+  "productivityAutomation": "Productivity & Automation",
+  "businessMarketing": "Business & Marketing",
+  "researchAnalysis": "Research & Analysis",
+  "communicationChat": "Communication & Chat",
+  "educationLearning": "Education & Learning",
+  "designCreative": "Design & Creative",
+  "audioMusic": "Audio & Music",
+  "dataAnalytics": "Data & Analytics",
+  "socialMedia": "Social Media",
+  "seoWeb": "SEO & Web",
+  "healthcareWellness": "Healthcare & Wellness",
+  "financeTrading": "Finance & Trading",
+  "gamingEntertainment": "Gaming & Entertainment",
+  "translationLanguage": "Translation & Language",
+  "chatbots": "Chatbots",
+  "machineLearning": "Machine Learning",
+  "integrations": "Integrations",
+  "other": "Other",
+  "allCategories": "All Categories"
+}
+

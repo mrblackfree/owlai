@@ -1,0 +1,48 @@
+{
+  "home": {
+    "title": "AI Tool Finder - Discover the Best AI Tools",
+    "description": "Find the best AI tools for your needs, from content creation to productivity and beyond.",
+    "toolsCount": " AI Tools",
+    "hero": {
+      "title": "Every piece of AI worth knowing—one click away",
+      "subtitle": "Discover and compare the best AI tools for your needs. From productivity apps to development tools, we've got you covered.",
+      "searchPlaceholder": "Search for any tool...",
+      "toolsCount": "+ Tools"
+    },
+    "stats": {
+      "aiTools": "AI Tools",
+      "activeUsers": "Active Users",
+      "reviews": "Reviews",
+      "categories": "Categories"
+    }
+  },
+  "advertise": {
+    "title": "Advertise",
+    "subtitle": "Reach thousands of AI enthusiasts",
+    "choosePlan": "Choose a Plan",
+    "features": "Features",
+    "selectPlan": "Select Plan",
+    "contactSales": "Contact Sales"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome",
+    "myTools": "My Tools",
+    "favorites": "Favorites",
+    "submissions": "Submissions",
+    "purchases": "Purchases",
+    "settings": "Settings",
+    "activity": "Activity"
+  },
+  "about": {
+    "title": "About",
+    "description": "Learn more about AI Tool Finder"
+  },
+  "privacy": {
+    "title": "Privacy Policy"
+  },
+  "terms": {
+    "title": "Terms of Service"
+  }
+}
+

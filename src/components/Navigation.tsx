@@ -59,8 +59,11 @@ import { toast } from "sonner";
 import { useSetAdminRole } from "@/lib/api/users";
 import { SubmitToolModal } from "@/components/modals/SubmitToolModal";
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Navigation = () => {
+  const { t } = useTranslation(['common', 'navigation']);
   const { user } = useUser();
   const { signOut, openUserProfile } = useClerk();
   const setAdminRole = useSetAdminRole();
@@ -141,17 +144,17 @@ export const Navigation = () => {
                     {/* Launches */}
                     <NavigationMenuItem>
                       <NavigationMenuTrigger className="h-10 px-4 text-gray-600 hover:text-gray-900">
-                        Launches
+                        {t('navigation:latest')}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <div className="grid gap-2 p-4 w-[400px] bg-white">
                           <Link to="/latest-launches" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Latest Launches</div>
-                            <div className="text-xs text-gray-500 mt-1">New AI tools this week</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:latestLaunches')}</div>
+                            <div className="text-xs text-gray-500 mt-1">{t('common:new')} AI {t('navigation:tools')}</div>
                           </Link>
                           <Link to="/upcoming" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Upcoming</div>
-                            <div className="text-xs text-gray-500 mt-1">Soon to be launched</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:upcoming')}</div>
+                            <div className="text-xs text-gray-500 mt-1">{t('common:upcoming')}</div>
                           </Link>
                         </div>
                       </NavigationMenuContent>
@@ -160,21 +163,21 @@ export const Navigation = () => {
                     {/* Products */}
                     <NavigationMenuItem>
                       <NavigationMenuTrigger className="h-10 px-4 text-gray-600 hover:text-gray-900">
-                        Products
+                        {t('navigation:tools')}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <div className="grid gap-2 p-4 w-[400px] bg-white">
                           <Link to="/top-products" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Top Products</div>
-                            <div className="text-xs text-gray-500 mt-1">Most popular AI tools</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:topProducts')}</div>
+                            <div className="text-xs text-gray-500 mt-1">{t('common:popular')} AI {t('navigation:tools')}</div>
                           </Link>
                           <Link to="/categories" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Categories</div>
-                            <div className="text-xs text-gray-500 mt-1">Browse by type</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:categories')}</div>
+                            <div className="text-xs text-gray-500 mt-1">{t('navigation:browseTools')}</div>
                           </Link>
                           <Link to="/trending" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Trending</div>
-                            <div className="text-xs text-gray-500 mt-1">Most popular right now</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:trending')}</div>
+                            <div className="text-xs text-gray-500 mt-1">{t('common:trending')}</div>
                           </Link>
                         </div>
                       </NavigationMenuContent>
@@ -183,17 +186,17 @@ export const Navigation = () => {
                     {/* News */}
                     <NavigationMenuItem>
                       <NavigationMenuTrigger className="h-10 px-4 text-gray-600 hover:text-gray-900">
-                        News
+                        {t('navigation:news')}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <div className="grid gap-2 p-4 w-[400px] bg-white">
                           <Link to="/latest-news" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Latest News</div>
-                            <div className="text-xs text-gray-500 mt-1">AI industry updates</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:news')}</div>
+                            <div className="text-xs text-gray-500 mt-1">AI {t('common:latest')}</div>
                           </Link>
                           <Link to="/blog" className="group block p-3 rounded-lg hover:bg-gray-50">
-                            <div className="text-sm font-medium text-gray-900">Blog</div>
-                            <div className="text-xs text-gray-500 mt-1">Insights and guides</div>
+                            <div className="text-sm font-medium text-gray-900">{t('navigation:blog')}</div>
+                            <div className="text-xs text-gray-500 mt-1">{t('navigation:guides')}</div>
                           </Link>
                         </div>
                       </NavigationMenuContent>
@@ -203,7 +206,7 @@ export const Navigation = () => {
                     <NavigationMenuItem>
                       <NavigationMenuLink asChild>
                         <Link to="/advertise" className="inline-flex h-10 px-4 items-center text-gray-600 hover:text-gray-900">
-                          Advertise
+                          {t('navigation:advertise')}
                         </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
@@ -212,14 +215,17 @@ export const Navigation = () => {
               </div>
 
               {/* Right side actions */}
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                {/* Language switcher */}
+                <LanguageSwitcher />
+                
                 {/* Submit tool button */}
                 <Button
                   className="hidden md:flex bg-green-500 hover:bg-green-600 text-white h-10 px-4"
                   onClick={() => setIsSubmitModalOpen(true)}
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Submit Your Tool
+                  {t('navigation:submitTool')}
                 </Button>
 
                 {/* Auth buttons or user menu */}
@@ -230,13 +236,13 @@ export const Navigation = () => {
                       onClick={() => navigate("/sign-in")}
                       className="border-gray-200 hover:border-gray-300 text-gray-700 h-10"
                     >
-                      Sign in
+                      {t('common:signIn')}
                     </Button>
                     <Button
                       onClick={() => navigate("/sign-up")}
                       className="bg-green-500 hover:bg-green-600 text-white h-10"
                     >
-                      Sign up
+                      {t('common:signUp')}
                     </Button>
                   </div>
                 ) : (
@@ -264,25 +270,25 @@ export const Navigation = () => {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => navigate("/dashboard")}>
                         <User className="mr-2 h-4 w-4" />
-                        <span>Dashboard</span>
+                        <span>{t('common:dashboard')}</span>
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => openUserProfile()}>
                         <Settings className="mr-2 h-4 w-4" />
-                        <span>Account settings</span>
+                        <span>{t('common:settings')}</span>
                       </DropdownMenuItem>
                       {isAdmin && (
                         <>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem onClick={() => navigate("/admin")}>
                             <Settings className="mr-2 h-4 w-4" />
-                            <span>Admin Dashboard</span>
+                            <span>{t('navigation:adminPanel')}</span>
                           </DropdownMenuItem>
                         </>
                       )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleSignOut}>
                         <LogOut className="mr-2 h-4 w-4" />
-                        <span>Sign out</span>
+                        <span>{t('common:signOut')}</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -339,7 +345,7 @@ export const Navigation = () => {
               
               <div className="space-y-1">
                 <div className="px-3 mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Discover
+                  {t('navigation:discover')}
                 </div>
                 <Link 
                   to="/latest-launches"
@@ -347,7 +353,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Rocket className="h-4 w-4 mr-3 text-gray-500" />
-                  Latest Launches
+                  {t('navigation:latestLaunches')}
                 </Link>
                 <Link 
                   to="/upcoming"
@@ -355,7 +361,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <CalendarClock className="h-4 w-4 mr-3 text-gray-500" />
-                  Upcoming
+                  {t('navigation:upcoming')}
                 </Link>
                 <Link 
                   to="/top-products"
@@ -363,7 +369,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Star className="h-4 w-4 mr-3 text-gray-500" />
-                  Top Products
+                  {t('navigation:topProducts')}
                 </Link>
                 <Link 
                   to="/categories"
@@ -371,7 +377,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <ListTodo className="h-4 w-4 mr-3 text-gray-500" />
-                  Categories
+                  {t('navigation:categories')}
                 </Link>
                 <Link 
                   to="/trending"
@@ -379,13 +385,13 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <TrendingUp className="h-4 w-4 mr-3 text-gray-500" />
-                  Trending
+                  {t('navigation:trending')}
                 </Link>
               </div>
               
               <div className="mt-4 pt-2 space-y-1 border-t border-gray-100">
                 <div className="px-3 mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Content
+                  {t('navigation:blog')}
                 </div>
                 <Link 
                   to="/latest-news"
@@ -393,7 +399,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Newspaper className="h-4 w-4 mr-3 text-gray-500" />
-                  Latest News
+                  {t('navigation:news')}
                 </Link>
                 <Link 
                   to="/blog"
@@ -401,7 +407,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <PenTool className="h-4 w-4 mr-3 text-gray-500" />
-                  Blog
+                  {t('navigation:blog')}
                 </Link>
                 <Link 
                   to="/advertise"
@@ -409,7 +415,7 @@ export const Navigation = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Megaphone className="h-4 w-4 mr-3 text-gray-500" />
-                  Advertise
+                  {t('navigation:advertise')}
                 </Link>
               </div>
               
@@ -489,7 +495,7 @@ export const Navigation = () => {
                       }}
                       className="border-gray-200 hover:border-gray-300 text-gray-700 w-full"
                     >
-                      Sign in
+                      {t('common:signIn')}
                     </Button>
                     <Button
                       onClick={() => {
@@ -498,7 +504,7 @@ export const Navigation = () => {
                       }}
                       className="bg-green-500 hover:bg-green-600 text-white w-full"
                     >
-                      Sign up
+                      {t('common:signUp')}
                     </Button>
                   </div>
                 ) : (
@@ -512,7 +518,7 @@ export const Navigation = () => {
                       }}
                     >
                       <User className="mr-3 h-4 w-4 text-gray-500" />
-                      Dashboard
+                      {t('common:dashboard')}
                     </Button>
                     <Button
                       variant="outline"
@@ -523,7 +529,7 @@ export const Navigation = () => {
                       }}
                     >
                       <Settings className="mr-3 h-4 w-4 text-gray-500" />
-                      Account settings
+                      {t('common:settings')}
                     </Button>
                     {isAdmin && (
                       <Button
@@ -535,7 +541,7 @@ export const Navigation = () => {
                         }}
                       >
                         <Shield className="mr-3 h-4 w-4 text-gray-500" />
-                        Admin Dashboard
+                        {t('navigation:adminPanel')}
                       </Button>
                     )}
                     <Button
@@ -544,7 +550,7 @@ export const Navigation = () => {
                       onClick={handleSignOut}
                     >
                       <LogOut className="mr-3 h-4 w-4 text-gray-500" />
-                      Sign out
+                      {t('common:signOut')}
                     </Button>
                   </div>
                 )}
@@ -559,11 +565,11 @@ export const Navigation = () => {
         <div className="grid grid-cols-5 h-full">
           <Link to="/" className="flex flex-col items-center justify-center text-xs font-medium text-gray-600 active-scale">
             <Sparkles className="h-5 w-5 mb-1" />
-            <span>Home</span>
+            <span>{t('navigation:home')}</span>
           </Link>
           <Link to="/categories" className="flex flex-col items-center justify-center text-xs font-medium text-gray-600 active-scale">
             <ListTodo className="h-5 w-5 mb-1" />
-            <span>Categories</span>
+            <span>{t('navigation:categories')}</span>
           </Link>
           <button 
             onClick={() => setIsSubmitModalOpen(true)}
@@ -572,15 +578,15 @@ export const Navigation = () => {
             <div className="bg-green-500 rounded-full h-12 w-12 flex items-center justify-center -mt-5 shadow-md">
               <Plus className="h-6 w-6 text-white" />
             </div>
-            <span className="mt-1">Submit</span>
+            <span className="mt-1">{t('common:submit')}</span>
           </button>
           <Link to="/trending" className="flex flex-col items-center justify-center text-xs font-medium text-gray-600 active-scale">
             <TrendingUp className="h-5 w-5 mb-1" />
-            <span>Trending</span>
+            <span>{t('navigation:trending')}</span>
           </Link>
           <Link to={user ? "/dashboard" : "/sign-in"} className="flex flex-col items-center justify-center text-xs font-medium text-gray-600 active-scale">
             <User className="h-5 w-5 mb-1" />
-            <span>{user ? "Account" : "Sign In"}</span>
+            <span>{user ? t('common:profile') : t('common:signIn')}</span>
           </Link>
         </div>
       </div>

@@ -15,6 +15,7 @@ import { SiteConfigProvider } from './contexts/SiteConfigContext';
 import { MetaTagsManager } from './components/MetaTagsManager';
 import { Analytics } from './components/Analytics';
 import { initializeVoteCounts } from './utils/voteUtils';
+import './i18n/config';
 import Index from "./pages/Index";
 import ProductDetail from "./pages/ProductDetail";
 import AddProduct from "./pages/AddProduct";

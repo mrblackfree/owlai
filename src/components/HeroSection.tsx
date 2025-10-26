@@ -8,6 +8,7 @@ import { Tool } from "@/types/tool";
 import { motion, AnimatePresence } from "framer-motion";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from 'react-i18next';
 
 // Mock tool data type to match Tool interface
 interface MockTool extends Partial<Tool> {
@@ -36,6 +37,8 @@ export const HeroSection = ({
   setIsSearchOpen: externalSetIsSearchOpen,
   siteDescription
 }: HeroSectionProps) => {
+  const { t } = useTranslation(['pages', 'common']);
+  
   // Use internal state if no external state is provided
   const [internalSearchQuery, setInternalSearchQuery] = useState("");
   const [internalIsSearchOpen, setInternalIsSearchOpen] = useState(false);
@@ -438,7 +441,7 @@ export const HeroSection = ({
           <div className="px-4 py-1.5 rounded-full bg-white border border-gray-100 shadow-sm">
             <div className="flex items-center space-x-2">
               <Sparkles className="h-4 w-4 text-emerald-500" />
-              <span className="text-sm font-medium text-gray-800">{toolsCount.toLocaleString()} AI Tools Available</span>
+              <span className="text-sm font-medium text-gray-800">{toolsCount.toLocaleString()} {t('pages:home.toolsCount')}</span>
             </div>
           </div>
         </motion.div>
@@ -450,9 +453,7 @@ export const HeroSection = ({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-gray-900 mb-4 sm:mb-6 leading-tight"
         >
-          <span className="inline-block">Every piece of AI</span><br />
-          <span className="inline-block bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">worth knowing</span>
-          <span className="inline-block">?�one click away</span>
+          {t('pages:home.hero.title')}
         </motion.h1>
 
         {/* Subtitle */}
@@ -462,7 +463,7 @@ export const HeroSection = ({
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mx-auto mt-6 sm:mt-8 max-w-2xl text-lg sm:text-xl text-gray-600 leading-relaxed px-2 sm:px-0"
         >
-          {siteDescription || "Discover and compare the best AI tools for your needs. From productivity apps to development tools, we've got you covered."}
+          {siteDescription || t('pages:home.hero.subtitle')}
         </motion.p>
 
         {/* Search and Chat Options */}
@@ -483,12 +484,12 @@ export const HeroSection = ({
                 <Input
                   type="text"
                   readOnly
-                  placeholder="Search for any tool..."
+                  placeholder={t('pages:home.hero.searchPlaceholder')}
                   className="pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 h-12 sm:h-14 w-full border-gray-200 rounded-full bg-white shadow-sm hover:shadow-md transition-shadow duration-200 focus:border-emerald-500 focus:ring-0 cursor-pointer text-sm sm:text-base"
                   onClick={handleSearchClick}
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-gray-100/80 border border-gray-200/60">
-                  <span className="text-xs font-medium text-gray-700">??/span>
+                  <span className="text-xs font-medium text-gray-700">⌘</span>
                   <span className="text-xs font-medium text-gray-700">K</span>
                 </div>
               </div>
@@ -636,7 +637,7 @@ export const HeroSection = ({
           className="flex flex-wrap justify-center gap-2.5 mt-10"
         >
           <div className="inline-flex items-center px-5 py-2 rounded-full text-sm bg-gradient-to-r from-emerald-500/10 to-emerald-500/20 text-emerald-700 font-medium border border-emerald-100 shadow-sm">
-            <span>??Find the perfect tool for your workflow</span>
+            <span>✦ Find the perfect tool for your workflow</span>
           </div>
           <Button 
             variant="link" 

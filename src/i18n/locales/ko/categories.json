@@ -1,0 +1,26 @@
+{
+  "writingContentCreation": "글쓰기 및 콘텐츠 제작",
+  "imageGenerationEditing": "이미지 생성 및 편집",
+  "videoCreationEditing": "비디오 제작 및 편집",
+  "codeDevelopment": "코드 및 개발",
+  "productivityAutomation": "생산성 및 자동화",
+  "businessMarketing": "비즈니스 및 마케팅",
+  "researchAnalysis": "리서치 및 분석",
+  "communicationChat": "커뮤니케이션 및 채팅",
+  "educationLearning": "교육 및 학습",
+  "designCreative": "디자인 및 창작",
+  "audioMusic": "오디오 및 음악",
+  "dataAnalytics": "데이터 및 분석",
+  "socialMedia": "소셜 미디어",
+  "seoWeb": "SEO 및 웹",
+  "healthcareWellness": "헬스케어 및 웰빙",
+  "financeTrading": "금융 및 트레이딩",
+  "gamingEntertainment": "게임 및 엔터테인먼트",
+  "translationLanguage": "번역 및 언어",
+  "chatbots": "챗봇",
+  "machineLearning": "머신러닝",
+  "integrations": "통합",
+  "other": "기타",
+  "allCategories": "모든 카테고리"
+}
+

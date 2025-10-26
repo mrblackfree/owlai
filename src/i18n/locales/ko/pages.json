@@ -1,0 +1,48 @@
+{
+  "home": {
+    "title": "AI 도구 찾기 - 최고의 AI 도구를 발견하세요",
+    "description": "AI 도구 찾기에서 여러분의 필요에 맞는 최고의 AI 도구를 찾아보세요. 콘텐츠 제작부터 생산성까지.",
+    "toolsCount": "개 AI 도구",
+    "hero": {
+      "title": "알아야 할 모든 AI가 한 번의 클릭으로",
+      "subtitle": "필요에 맞는 최고의 AI 도구를 발견하고 비교하세요. 생산성 앱부터 개발 도구까지 모두 준비되어 있습니다.",
+      "searchPlaceholder": "도구 검색...",
+      "toolsCount": "개 이상의 도구"
+    },
+    "stats": {
+      "aiTools": "AI 도구",
+      "activeUsers": "활성 사용자",
+      "reviews": "리뷰",
+      "categories": "카테고리"
+    }
+  },
+  "advertise": {
+    "title": "광고하기",
+    "subtitle": "수천 명의 AI 애호가에게 도달하세요",
+    "choosePlan": "플랜 선택",
+    "features": "기능",
+    "selectPlan": "플랜 선택",
+    "contactSales": "영업팀 문의"
+  },
+  "dashboard": {
+    "title": "대시보드",
+    "welcome": "환영합니다",
+    "myTools": "내 도구",
+    "favorites": "즐겨찾기",
+    "submissions": "제출물",
+    "purchases": "구매 내역",
+    "settings": "설정",
+    "activity": "활동"
+  },
+  "about": {
+    "title": "소개",
+    "description": "AI 도구 찾기에 대해 알아보세요"
+  },
+  "privacy": {
+    "title": "개인정보 처리방침"
+  },
+  "terms": {
+    "title": "이용약관"
+  }
+}
+
