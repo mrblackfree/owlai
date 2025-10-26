@@ -44,13 +44,42 @@
   },
   "about": {
     "title": "About",
-    "description": "Learn more about AI Tool Finder"
+    "description": "Learn more about AI Tool Finder",
+    "heading": "About AI Tool Finder",
+    "subtitle": "Your partner in discovering the best AI tools"
   },
   "privacy": {
-    "title": "Privacy Policy"
+    "title": "Privacy Policy",
+    "heading": "Privacy Policy",
+    "lastUpdated": "Last Updated"
   },
   "terms": {
-    "title": "Terms of Service"
+    "title": "Terms of Service",
+    "heading": "Terms of Service",
+    "lastUpdated": "Last Updated"
+  },
+  "faq": {
+    "title": "FAQ",
+    "heading": "Frequently Asked Questions",
+    "subtitle": "Find answers to your questions"
+  },
+  "guides": {
+    "title": "Guides",
+    "heading": "AI Tool Guides",
+    "subtitle": "How to use AI tools effectively"
+  },
+  "blog": {
+    "title": "Blog",
+    "heading": "Blog",
+    "subtitle": "Insights and guides about AI",
+    "readMore": "Read more",
+    "minutesRead": "min read"
+  },
+  "news": {
+    "title": "News",
+    "heading": "AI News",
+    "subtitle": "Latest AI industry updates",
+    "source": "Source"
   }
 }
 

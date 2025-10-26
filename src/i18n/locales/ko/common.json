@@ -45,6 +45,8 @@
   "latest": "최신",
   "topRated": "최고 평점",
   "upcoming": "예정",
+  "expand": "확장",
+  "collapse": "축소",
   "search": {
     "placeholder": "도구 또는 기능 검색...",
     "searching": "검색 중...",

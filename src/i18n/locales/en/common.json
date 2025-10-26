@@ -45,6 +45,8 @@
   "latest": "Latest",
   "topRated": "Top Rated",
   "upcoming": "Upcoming",
+  "expand": "Expand",
+  "collapse": "Collapse",
   "search": {
     "placeholder": "Search for any tool or feature...",
     "searching": "Searching...",

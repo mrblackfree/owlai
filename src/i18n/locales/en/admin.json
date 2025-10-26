@@ -39,6 +39,59 @@
   "selectedItems": "{{count}} selected",
   "page": "Page",
   "perPage": "Per page",
-  "showing": "Showing {{from}}-{{to}} of {{total}}"
+  "showing": "Showing {{from}}-{{to}} of {{total}}",
+  "table": {
+    "name": "Name",
+    "title": "Title",
+    "category": "Category",
+    "status": "Status",
+    "date": "Date",
+    "actions": "Actions",
+    "views": "Views",
+    "rating": "Rating",
+    "author": "Author",
+    "email": "Email",
+    "role": "Role",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived"
+  },
+  "buttons": {
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "view": "View",
+    "approve": "Approve",
+    "reject": "Reject",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "archive": "Archive",
+    "restore": "Restore",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import"
+  },
+  "messages": {
+    "confirmDelete": "Are you sure you want to delete?",
+    "deleteSuccess": "Deleted successfully",
+    "deleteError": "Error deleting",
+    "saveSuccess": "Saved successfully",
+    "saveError": "Error saving",
+    "noData": "No data available",
+    "loading": "Loading..."
+  }
 }
 
