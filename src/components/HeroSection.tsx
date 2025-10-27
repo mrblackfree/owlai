@@ -504,7 +504,7 @@ export const HeroSection = ({
                 className="w-full h-12 sm:h-14 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full shadow-sm flex items-center justify-center gap-2 group px-3 sm:px-4"
               >
                 <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:scale-110 flex-shrink-0" />
-                <span className="font-medium text-sm sm:text-base truncate">Ask AI to recommend tools</span>
+                <span className="font-medium text-sm sm:text-base truncate">{t('pages:home.hero.askAiRecommend')}</span>
               </Button>
             ) : (
               <motion.div
@@ -637,14 +637,14 @@ export const HeroSection = ({
           className="flex flex-wrap justify-center gap-2.5 mt-10"
         >
           <div className="inline-flex items-center px-5 py-2 rounded-full text-sm bg-gradient-to-r from-emerald-500/10 to-emerald-500/20 text-emerald-700 font-medium border border-emerald-100 shadow-sm">
-            <span>✦ Find the perfect tool for your workflow</span>
+            <span>✦ {t('pages:home.hero.findPerfectTool')}</span>
           </div>
           <Button 
             variant="link" 
             className="text-sm text-emerald-600 hover:text-emerald-700 flex items-center font-medium"
             onClick={() => navigate('/categories')}
           >
-            Browse categories <ChevronRight className="h-4 w-4 ml-1" />
+            {t('pages:home.hero.browseCategories')} <ChevronRight className="h-4 w-4 ml-1" />
           </Button>
         </motion.div>
       </div>

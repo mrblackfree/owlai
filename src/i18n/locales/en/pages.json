@@ -7,7 +7,12 @@
       "title": "Every piece of AI worth knowing—one click away",
       "subtitle": "Discover and compare the best AI tools for your needs. From productivity apps to development tools, we've got you covered.",
       "searchPlaceholder": "Search for any tool...",
-      "toolsCount": "+ Tools"
+      "toolsCount": "+ Tools",
+      "discoverBestTools": "Discover the Best AI Tools",
+      "discoverForNeeds": "Discover the Best AI Tools for your needs",
+      "askAiRecommend": "Ask AI to Recommend tools",
+      "findPerfectTool": "Find the perfect tool for your workflow",
+      "browseCategories": "Browse Categories"
     },
     "stats": {
       "title": "Platform Statistics",

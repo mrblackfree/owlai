@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useTools } from "@/lib/api/tools";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from 'react-i18next';
+import { useLocalizedContent } from '@/hooks/useLocalizedContent';
 
 interface Category {
   id: string;
@@ -16,6 +18,8 @@ interface Category {
 }
 
 export default function Categories() {
+  const { t } = useTranslation('pages');
+  const { getCategory } = useLocalizedContent();
   const [searchQuery, setSearchQuery] = useState("");
   
   // Fetch tools from API with pagination
@@ -71,9 +75,9 @@ export default function Categories() {
   return (
     <div className="container mx-auto px-4 py-8 mt-24">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Browse by Categories</h1>
+        <h1 className="text-4xl font-bold mb-4">{t('categoriesPage.heading')}</h1>
         <p className="text-gray-600 mb-6">
-          Explore AI tools organized by categories. Find the perfect tool for your needs.
+          {t('categoriesPage.subtitle')}
         </p>
         
         {/* Search */}
@@ -81,7 +85,7 @@ export default function Categories() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Search categories..."
+            placeholder={t('common:filter.searchCategories')}
             className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -95,7 +99,7 @@ export default function Categories() {
             <Link to={`/category/${encodeURIComponent(category.name.toLowerCase())}`}>
               <CardHeader className="pb-3">
                 <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
-                  {category.name}
+                  {getCategory(category.name)}
                 </CardTitle>
               </CardHeader>
               <CardContent>

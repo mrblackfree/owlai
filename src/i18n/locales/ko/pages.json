@@ -7,7 +7,12 @@
       "title": "알아야 할 모든 AI가 한 번의 클릭으로",
       "subtitle": "필요에 맞는 최고의 AI 도구를 발견하고 비교하세요. 생산성 앱부터 개발 도구까지 모두 준비되어 있습니다.",
       "searchPlaceholder": "도구 검색...",
-      "toolsCount": "개 이상의 도구"
+      "toolsCount": "개 이상의 도구",
+      "discoverBestTools": "최고의 AI 도구를 발견하세요",
+      "discoverForNeeds": "필요에 맞는 최고의 AI 도구를 발견하세요",
+      "askAiRecommend": "AI에게 도구 추천 받기",
+      "findPerfectTool": "워크플로우에 완벽한 도구를 찾으세요",
+      "browseCategories": "카테고리 둘러보기"
     },
     "stats": {
       "title": "플랫폼 통계",
