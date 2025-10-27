@@ -3,7 +3,7 @@ import { useAuth } from '@clerk/clerk-react';
 import { BlogPost } from '@/types/blog';
 
 // Use the environment variable, falling back to port 3001
-const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
+const API_URL = import.meta.env.VITE_API_URL;
 
 console.log('Using API URL:', API_URL); // Add this line for debugging
 

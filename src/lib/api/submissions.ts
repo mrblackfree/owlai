@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@clerk/clerk-react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface ToolSubmission {
   _id: string;

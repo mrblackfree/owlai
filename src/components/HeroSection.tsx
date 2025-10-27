@@ -56,7 +56,7 @@ export const HeroSection = ({
   
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Fetch tools count from API
   useEffect(() => {

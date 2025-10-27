@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Wrench, Users, Star, Activity } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Stats = () => {
   const { t } = useTranslation('pages');

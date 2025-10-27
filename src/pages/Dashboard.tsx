@@ -454,7 +454,7 @@ export default function Dashboard() {
   const totalPurchases = purchases?.length || 0;
 
   // First, add an API URL constant if it doesn't exist
-  const API_URL = import.meta.env.VITE_API_URL || 'https://owl.io.kr';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Avatar styles
   const avatarStyles = [
