@@ -136,6 +136,49 @@
     "loading": "Loading...",
     "error": "Error loading data",
     "tryAgain": "Try Again"
+  },
+  "trending": {
+    "title": "Trending",
+    "heading": "Trending AI Tools",
+    "subtitle": "Most popular tools right now"
+  },
+  "topProducts": {
+    "title": "Top Products",
+    "heading": "Top AI Tools",
+    "subtitle": "Most used tools"
+  },
+  "upcoming": {
+    "title": "Upcoming",
+    "heading": "Upcoming AI Tools",
+    "subtitle": "Tools launching soon"
+  },
+  "latestLaunches": {
+    "title": "Latest Launches",
+    "heading": "Latest Launches",
+    "subtitle": "New tools this week"
+  },
+  "categoriesPage": {
+    "title": "Categories",
+    "heading": "All Categories",
+    "subtitle": "Find tools for your needs",
+    "browseByCategory": "Browse by category"
+  },
+  "toolCard": {
+    "views": "views",
+    "upvotes": "upvotes",
+    "rating": "rating",
+    "free": "Free",
+    "freemium": "Freemium",
+    "paid": "Paid",
+    "enterprise": "Enterprise",
+    "viewDetails": "View Details",
+    "visitWebsite": "Visit Website",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
+    "upvote": "Upvote",
+    "new": "New",
+    "trending": "Trending",
+    "topRated": "Top Rated"
   }
 }
 

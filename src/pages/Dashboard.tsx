@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from 'react-i18next';
 import {
   BookmarkIcon,
   Settings,
@@ -201,7 +202,7 @@ function PurchasesTab({ userId }: { userId?: string }) {
                       </Badge>
                     </CardTitle>
                     <CardDescription>
-                      Order #{purchase._id.slice(-8).toUpperCase()} ??
+                      Order #{purchase._id.slice(-8).toUpperCase()} • 
                       Purchased {formatDate(purchase.createdAt)}
                     </CardDescription>
                   </div>
@@ -392,6 +393,7 @@ function PurchasesTab({ userId }: { userId?: string }) {
 }
 
 export default function Dashboard() {
+  const { t } = useTranslation('pages');
   const navigate = useNavigate();
   const { user, isSignedIn } = useUser();
   const { signOut, openUserProfile } = useClerk();
@@ -924,7 +926,7 @@ export default function Dashboard() {
         </div>
         <div className="flex-grow text-center md:text-left">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent mb-2">
-                          Welcome back, {(user?.unsafeMetadata?.displayName as string) || user?.firstName || (user?.unsafeMetadata?.customUsername as string) || user?.username || "User"}!
+                          {t('dashboard.welcomeBack')}, {(user?.unsafeMetadata?.displayName as string) || user?.firstName || (user?.unsafeMetadata?.customUsername as string) || user?.username || "User"}!
           </h1>
           <p className="text-gray-600 mb-6">
             {user?.emailAddresses?.[0]?.emailAddress || ""}
@@ -936,7 +938,7 @@ export default function Dashboard() {
               onClick={() => setActiveTab("settings")}
             >
               <Settings className="w-4 h-4" />
-              Edit Profile
+              {t('dashboard.editProfile')}
             </Button>
             <Button 
               variant="outline" 
@@ -944,7 +946,7 @@ export default function Dashboard() {
               onClick={handleSignOut}
             >
               <LogOut className="w-4 h-4" />
-              Sign Out
+              {t('common:signOut')}
             </Button>
           </div>
         </div>

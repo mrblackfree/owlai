@@ -136,6 +136,49 @@
     "loading": "로딩 중...",
     "error": "데이터를 불러오는 중 오류가 발생했습니다",
     "tryAgain": "다시 시도"
+  },
+  "trending": {
+    "title": "트렌딩",
+    "heading": "트렌딩 AI 도구",
+    "subtitle": "지금 가장 인기 있는 도구들"
+  },
+  "topProducts": {
+    "title": "인기 제품",
+    "heading": "인기 AI 도구",
+    "subtitle": "가장 많이 사용되는 도구들"
+  },
+  "upcoming": {
+    "title": "출시 예정",
+    "heading": "곧 출시될 AI 도구",
+    "subtitle": "곧 만나볼 수 있는 도구들"
+  },
+  "latestLaunches": {
+    "title": "최신 출시",
+    "heading": "최신 출시 도구",
+    "subtitle": "이번 주 새로 출시된 도구들"
+  },
+  "categoriesPage": {
+    "title": "카테고리",
+    "heading": "모든 카테고리",
+    "subtitle": "필요에 맞는 도구 찾기",
+    "browseByCategory": "카테고리별로 둘러보기"
+  },
+  "toolCard": {
+    "views": "조회",
+    "upvotes": "추천",
+    "rating": "평점",
+    "free": "무료",
+    "freemium": "프리미엄",
+    "paid": "유료",
+    "enterprise": "기업용",
+    "viewDetails": "상세 보기",
+    "visitWebsite": "웹사이트 방문",
+    "addToFavorites": "즐겨찾기 추가",
+    "removeFromFavorites": "즐겨찾기 제거",
+    "upvote": "추천하기",
+    "new": "신규",
+    "trending": "트렌딩",
+    "topRated": "최고 평점"
   }
 }
 
